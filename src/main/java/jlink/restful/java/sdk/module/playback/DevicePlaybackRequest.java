@@ -18,37 +18,48 @@ import org.apache.commons.lang3.StringUtils;
  * Playback
  *
  * @author hjm
- * @date 2022/04/28
+ * @date 2024/04/24
  */
 public class DevicePlaybackRequest {
 
     /**
      * playback Request
      *
-     * @param user
-     * @param pass
      * @param channel
      * @param stream
+     * @param protocol
      * @param startTime
      * @param endTime
      * @param fileName
-     * @param userToken
+     * @param encryptType
+     * @param devUser
+     * @param devPass
+     * @param loginToken
+     * @param download
+     * @param playPrioritize
      * @param devToken
      * @param mJLinkClient
      * @return {@link String}
      */
-    public String devicePlayback(String user, String pass, int channel, int stream, String startTime, String endTime, String fileName, String userToken, String devToken, JLinkClient mJLinkClient) {
+    public String devicePlayback(int channel, int stream, String protocol, String startTime, String endTime, String fileName, String encryptType, String devUser, String devPass, String loginToken, int download, int playPrioritize, String devToken, JLinkClient mJLinkClient) {
         DevicePlaybackResponse response;
         String requestUrl = String.format("%s/%s/%s", JLinkDomain.OPENAPI_DOMAIN.get(), JLinkDeviceRequestUrl.DEVICE_PLAYBACKSTREAM.get(), devToken);
         PlayBackParam param = new PlayBackParam();
         param.setChannel(channel);
         param.setStreamType(stream);
+        if (null != protocol && !"".equals(protocol)) param.setProtocol(protocol);
         param.setStartTime(startTime);
         param.setEndTime(endTime);
         param.setFileName(fileName);
-        param.setUserToken(userToken);
-        param.setUsername(user);
-        param.setDevPwd(pass);
+        if (null != encryptType && encryptType.equals("TOKEN")) {
+            param.setEncryptType(encryptType);
+            param.setLoginToken(loginToken);
+        } else {
+            param.setUsername(devUser);
+            param.setDevPwd(devPass);
+        }
+        param.setDownload(download);
+        param.setPlayPrioritize(playPrioritize);
         //send https request
         String res = JLinkHttpUtil.httpsRequest(requestUrl, JLinkMethodType.POST.get(), JLinkHeaderUtil.map(mJLinkClient), new Gson().toJson(param));
         try {
@@ -228,6 +239,11 @@ public class DevicePlaybackRequest {
      * @date 2022/04/22
      */
     private static class PlayBackParam {
+
+        /**
+         * protocol     hls/rtsp(default)/rtsp-pri/flv
+         */
+        private String protocol;
         /**
          * fileName
          */
@@ -249,19 +265,74 @@ public class DevicePlaybackRequest {
          */
         private String devPwd;
         /**
-         * userToken
+         * encryptType
          */
-        private String userToken;
+        private String encryptType;
 
         /**
-         * startTime
+         * loginToken    encryptType == "TOKEN",need loginToken
+         */
+        private String loginToken;
+
+        /**
+         * startTime    YYYY-mm-dd HH:MM:SS
          */
         private String startTime;
 
         /**
-         * endOfTime
+         * endOfTime   YYYY-mm-dd HH:MM:SS
          */
         private String endTime;
+
+        /**
+         * download    0:play(default)    1:download
+         */
+        private int download;
+
+        /**
+         * playPrioritize   0~2;
+         */
+        private int playPrioritize;
+
+        public String getProtocol() {
+            return protocol;
+        }
+
+        public void setProtocol(String protocol) {
+            this.protocol = protocol;
+        }
+
+        public String getEncryptType() {
+            return encryptType;
+        }
+
+        public void setEncryptType(String encryptType) {
+            this.encryptType = encryptType;
+        }
+
+        public String getLoginToken() {
+            return loginToken;
+        }
+
+        public void setLoginToken(String loginToken) {
+            this.loginToken = loginToken;
+        }
+
+        public int getDownload() {
+            return download;
+        }
+
+        public void setDownload(int download) {
+            this.download = download;
+        }
+
+        public int getPlayPrioritize() {
+            return playPrioritize;
+        }
+
+        public void setPlayPrioritize(int playPrioritize) {
+            this.playPrioritize = playPrioritize;
+        }
 
         public String getFileName() {
             return fileName;
@@ -301,14 +372,6 @@ public class DevicePlaybackRequest {
 
         public void setDevPwd(String devPwd) {
             this.devPwd = devPwd;
-        }
-
-        public String getUserToken() {
-            return userToken;
-        }
-
-        public void setUserToken(String userToken) {
-            this.userToken = userToken;
         }
 
         public String getStartTime() {

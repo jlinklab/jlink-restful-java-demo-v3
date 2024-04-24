@@ -16,13 +16,12 @@ public class JLinkPlaybackCase {
                 "5b027c14d371332e88a9cbae30375ee7",
                 "fd664d5fa6974ec09023818f68b23212",
                 5);
-        JLinkUser jUser = new JLinkUser(jClient);
         JLinkDevice jDevice = new JLinkDevice(jClient, "1234567890123456", "admin", "");
 
         //get file list
         OPFileQueryDTO dto = new OPFileQueryDTO();
-        dto.getOpFileQuery().setBeginTime("2023-03-31 00:00:00");
-        dto.getOpFileQuery().setEndTime("2022-04-01 00:00:00");
+        dto.getOpFileQuery().setBeginTime("2024-04-23 00:36:27");
+        dto.getOpFileQuery().setEndTime("2024-04-23 01:36:27");
         dto.getOpFileQuery().setChannel(0);
         dto.getOpFileQuery().setType("h264");
         OPFileQueryResponse response = (OPFileQueryResponse) jDevice.deviceOperate(dto);
@@ -31,13 +30,12 @@ public class JLinkPlaybackCase {
             String fileName = response.getOPFileQuery().get(0).getFileName();
             String startTime = response.getOPFileQuery().get(0).getBeginTime();
             String endTime = response.getOPFileQuery().get(0).getEndTime();
-
             String playback = jDevice.devicePlayback(
                     DevicePlaybackEnum.STREAM_EXTRA.get(),
+                    "hls",
                     startTime,
                     endTime,
-                    fileName,
-                    jUser
+                    fileName
             );
             JLinkLog.i(playback);
         }

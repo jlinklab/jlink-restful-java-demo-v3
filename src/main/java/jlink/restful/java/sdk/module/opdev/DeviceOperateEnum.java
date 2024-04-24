@@ -17,6 +17,7 @@ import jlink.restful.java.sdk.module.opdev.opsystemconfig.OPSystemConfigResponse
 import jlink.restful.java.sdk.module.opdev.optimequery.OPTimeQueryResponse;
 import jlink.restful.java.sdk.module.opdev.optimesetting.OPTimeSettingResponse;
 import jlink.restful.java.sdk.module.opdev.opversionlist.OPVersionListResponse;
+import jlink.restful.java.sdk.module.opdev.opvoicelightalarm.OPVoiceLightAlarmResponse;
 
 import java.lang.reflect.Type;
 
@@ -56,7 +57,7 @@ public enum DeviceOperateEnum {
     }.getType()),
     OPRecordTimeQuery("OPFileQuery", new TypeToken<DeviceOperateResponse<OPFileQueryResponse>>() {
     }.getType()),
-    OPSystemConfig("OPSystemConfig", new TypeToken<DeviceOperateResponse<OPSystemConfigResponse>>(){
+    OPSystemConfig("OPSystemConfig", new TypeToken<DeviceOperateResponse<OPSystemConfigResponse>>() {
     }.getType()),
     OPVersionList("OPVersionList", new TypeToken<DeviceOperateResponse<OPVersionListResponse>>() {
     }.getType()),
@@ -69,6 +70,8 @@ public enum DeviceOperateEnum {
     OPCloudFileGetDownloadState("OPCloudFileGetDownloadState", new TypeToken<DeviceOperateResponse<OPCloudFileGetDownloadStateResponse>>() {
     }.getType()),
     OPCloudUpgradeGetBurnProgress("OPCloudUpgradeGetBurnProgress", new TypeToken<DeviceOperateResponse<OPCloudUpgradeGetBurnProgressResponse>>() {
+    }.getType()),
+    OPVoiceLightAlarm("OPVoiceLightAlarm", new TypeToken<DeviceOperateResponse<OPVoiceLightAlarmResponse>>() {
     }.getType());
 
 

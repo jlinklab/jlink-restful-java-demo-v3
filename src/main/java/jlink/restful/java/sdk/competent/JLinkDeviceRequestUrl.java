@@ -16,6 +16,11 @@ public enum JLinkDeviceRequestUrl {
      * loginToken
      */
     LOGIN_TOKEN("v3/rtc/device/queryLoginToken"),
+
+    /**
+     * Device LIST
+     */
+    DEVICE_LIST("v3/rtc/device/list"),
     /**
      * capture
      */
@@ -105,7 +110,9 @@ public enum JLinkDeviceRequestUrl {
      */
     TAILORED_CONFIG("v3/rtc/device/getTailoredConfig"),
 
-    PLAYBACK_TIMELINELIST("v3/rtc/device/playbackTimelineList");
+    PLAYBACK_TIMELINELIST("v3/rtc/device/playbackTimelineList"),
+
+    MEDIA_CONVERT("v3/rtc/device/mediaConvert");
 
 
     private String requestUrl;

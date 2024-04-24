@@ -21,6 +21,8 @@ import jlink.restful.java.sdk.module.info.DeviceInfoResponse;
 import jlink.restful.java.sdk.module.keepalive.DeviceKeepAliveEnum;
 import jlink.restful.java.sdk.module.keepalive.DeviceKeepaliveResponse;
 import jlink.restful.java.sdk.module.livestream.DeviceLiveStreamRequest;
+import jlink.restful.java.sdk.module.livestream.DeviceMediaConvertRequest;
+import jlink.restful.java.sdk.module.livestream.DeviceMediaConvertResponse;
 import jlink.restful.java.sdk.module.localpic.DeviceLocalPicRequest;
 import jlink.restful.java.sdk.module.login.DeviceLoginData;
 import jlink.restful.java.sdk.module.login.DeviceLoginRequest;
@@ -66,6 +68,10 @@ public class JLinkDevice {
      * device Password
      */
     private String mDevicePass;
+    /**
+     * loginToken
+     */
+    private String mLoginToken;
 
     /**
      * session
@@ -79,6 +85,12 @@ public class JLinkDevice {
     public JLinkDevice(JLinkClient jClient, String sn) {
         this.mJLinkClient = jClient;
         this.mDeviceSn = sn;
+    }
+
+    public JLinkDevice(JLinkClient jClient, String sn, String mLoginToken) {
+        this.mJLinkClient = jClient;
+        this.mDeviceSn = sn;
+        this.mLoginToken = mLoginToken;
     }
 
     public JLinkDevice(JLinkClient jClient, String sn, String devUsername, String devPassword) {
@@ -263,6 +275,24 @@ public class JLinkDevice {
         }
     }
 
+
+    /**
+     * deviceMediaConvert
+     *
+     * @param alogAppUuid
+     * @param sn
+     * @param protocol
+     * @param sliceType
+     * @param videoCode
+     * @param audioCode
+     * @param protocolSrc
+     * @param expireTime
+     * @return {@link DeviceMediaConvertResponse}
+     */
+    public DeviceMediaConvertResponse deviceMediaConvert(String alogAppUuid, String sn, String protocol, String sliceType, String videoCode, String audioCode, String protocolSrc, String expireTime) {
+        return new DeviceMediaConvertRequest().deviceMediaConvert(alogAppUuid, sn, protocol, sliceType, videoCode, audioCode, protocolSrc, expireTime, mJLinkClient);
+    }
+
     /**
      * device liveStream
      *
@@ -322,9 +352,9 @@ public class JLinkDevice {
      * cloud storage alarm video
      */
     public String getVideoUrl(String startTime, String stopTime) {
-        if (!session.isLogin()) {
+        /*if (!session.isLogin()) {
             login();
-        }
+        }*/
         return new DeviceCloudStorageAlarmRequest().getVideoUrl(startTime, stopTime, getDeviceToken(), mJLinkClient);
     }
 
@@ -381,12 +411,20 @@ public class JLinkDevice {
      *
      * @return boolean
      */
-    public String devicePlayback(int stream, String startTime, String endTime, String fileName, JLinkUser jUser) {
-        return devicePlayback(0, stream, startTime, endTime, fileName, jUser);
+    public String devicePlayback(int stream, String protocol, String startTime, String endTime, String fileName) {
+        return devicePlayback(0, stream, protocol, startTime, endTime, fileName, "", "", 0, 0);
     }
 
-    public String devicePlayback(int channel, int stream, String startTime, String endTime, String fileName, JLinkUser jUser) {
-        return new DevicePlaybackRequest().devicePlayback(mDeviceUser, mDevicePass, channel, stream, startTime, endTime, fileName, jUser.getUserToken(), getDeviceToken(), mJLinkClient);
+    public String devicePlayback(int stream, String protocol, String startTime, String endTime, String fileName, int download, int playPrioritize) {
+        return devicePlayback(0, stream, protocol, startTime, endTime, fileName, "", "", download, playPrioritize);
+    }
+
+    public String devicePlayback(int stream, String protocol, String startTime, String endTime, String fileName, String encryptType, String loginToken) {
+        return devicePlayback(0, stream, protocol, startTime, endTime, fileName, encryptType, loginToken, 0, 0);
+    }
+
+    public String devicePlayback(int channel, int stream, String protocol, String startTime, String endTime, String fileName, String encryptType, String loginToken, int download, int playPrioritize) {
+        return new DevicePlaybackRequest().devicePlayback(channel, stream, protocol, startTime, endTime, fileName, encryptType, mDeviceUser, mDevicePass, loginToken, download, playPrioritize, getDeviceToken(), mJLinkClient);
     }
 
     /**
