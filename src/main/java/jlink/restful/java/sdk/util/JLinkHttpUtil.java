@@ -115,7 +115,7 @@ public class JLinkHttpUtil {
         }
     }
 
-    private static String httpRequest(String requestUrl, String requestMethod, Map<String, String> requestHeader, String bodyParam) {
+    public static String httpRequest(String requestUrl, String requestMethod, Map<String, String> requestHeader, String bodyParam) {
         JLinkLog.i("httpRequest url:<--" + requestUrl);
         try {
             bodyParam = URLDecoder.decode(bodyParam, "utf-8");

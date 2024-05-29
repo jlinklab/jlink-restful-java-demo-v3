@@ -61,6 +61,8 @@ public enum JLinkDeviceConfigTypeEnum {
     //videoConfiguration
     RECORD("Record", new TypeToken<DeviceConfig<RecordConfig>>() {
     }.getType()),
+    EXTRECORD("ExtRecord", new TypeToken<DeviceConfig<ExtRecordConfig>>() {
+    }.getType()),
     //videoWindowConfiguration
     VIDEOCHANNEL("VideoChannel", new TypeToken<DeviceConfig<Object>>() {
     }.getType()),

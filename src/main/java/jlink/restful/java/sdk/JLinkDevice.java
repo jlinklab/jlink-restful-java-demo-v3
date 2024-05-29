@@ -9,9 +9,7 @@ import jlink.restful.java.sdk.module.ability.DeviceAbilityResponse;
 import jlink.restful.java.sdk.module.alarm.DeviceAlarmListRequest;
 import jlink.restful.java.sdk.module.alarm.DeviceAlarmListResponse;
 import jlink.restful.java.sdk.module.capture.DeviceCaptureRequest;
-import jlink.restful.java.sdk.module.cloudstorage.DeviceCloudStorageAlarmRequest;
-import jlink.restful.java.sdk.module.cloudstorage.DeviceCloudStoragePicResponse;
-import jlink.restful.java.sdk.module.cloudstorage.DeviceCloudStorageVideoListResponse;
+import jlink.restful.java.sdk.module.cloudstorage.*;
 import jlink.restful.java.sdk.module.config.CustomerFlowConfig;
 import jlink.restful.java.sdk.module.config.DetectHumanDetectionConfig;
 import jlink.restful.java.sdk.module.config.DeviceConfig;
@@ -30,6 +28,7 @@ import jlink.restful.java.sdk.module.login.DeviceSession;
 import jlink.restful.java.sdk.module.opdev.DeviceOperate;
 import jlink.restful.java.sdk.module.opdev.DeviceOperateRequest;
 import jlink.restful.java.sdk.module.opdev.DeviceOperateResponse;
+import jlink.restful.java.sdk.module.opdev.opdiskmanager.OPStorageFormatDTO;
 import jlink.restful.java.sdk.module.passengerFlow.*;
 import jlink.restful.java.sdk.module.playback.DevicePlaybackRequest;
 import jlink.restful.java.sdk.module.status.DeviceGetStatusRequest;
@@ -275,9 +274,26 @@ public class JLinkDevice {
         }
     }
 
+    public DeviceOperateResponse deviceStorageFormat(int partNo, int serialNo) {
+        //todo 1、determineLogin
+        if (!session.isLogin()) {
+            login();
+        }
+        //todo 2.device Operation
+        OPStorageFormatDTO operate = new OPStorageFormatDTO();
+        OPStorageFormatDTO.OPStorageManager manager = new OPStorageFormatDTO.OPStorageManager();
+        manager.setAction("Clear");
+        manager.setPartNo(partNo);
+        manager.setSerialNo(serialNo);
+        operate.setOpStorageManager(manager);
+        return DeviceOperateRequest.operate(operate, getDeviceToken(), this.mJLinkClient);
+    }
+
 
     /**
      * deviceMediaConvert
+     * <p>
+     * Custom interface, can only be used in limited scenarios
      *
      * @param alogAppUuid
      * @param sn
@@ -287,10 +303,12 @@ public class JLinkDevice {
      * @param audioCode
      * @param protocolSrc
      * @param expireTime
+     * @param type
+     * @param url
      * @return {@link DeviceMediaConvertResponse}
      */
-    public DeviceMediaConvertResponse deviceMediaConvert(String alogAppUuid, String sn, String protocol, String sliceType, String videoCode, String audioCode, String protocolSrc, String expireTime) {
-        return new DeviceMediaConvertRequest().deviceMediaConvert(alogAppUuid, sn, protocol, sliceType, videoCode, audioCode, protocolSrc, expireTime, mJLinkClient);
+    public DeviceMediaConvertResponse deviceMediaConvert(String alogAppUuid, String sn, String protocol, String sliceType, String videoCode, String audioCode, String protocolSrc, String expireTime, String type, String url) {
+        return new DeviceMediaConvertRequest().deviceMediaConvert(alogAppUuid, sn, protocol, sliceType, videoCode, audioCode, protocolSrc, expireTime, type, url, mJLinkClient);
     }
 
     /**
@@ -342,6 +360,26 @@ public class JLinkDevice {
     }
 
     /**
+     * cloud storage start recording video
+     */
+    public DeviceCloudStorageResponse startCloudRecord(int duration) {
+        if (!session.isLogin()) {
+            login();
+        }
+        return new DeviceCloudStorageRequest().startRecording(mDeviceSn, duration, getDeviceToken(), mJLinkClient);
+    }
+
+    /**
+     * cloud storage stop recording video
+     */
+    public DeviceCloudStorageResponse stopCloudRecord() {
+        if (!session.isLogin()) {
+            login();
+        }
+        return new DeviceCloudStorageRequest().stopRecording(mDeviceSn, getDeviceToken(), mJLinkClient);
+    }
+
+    /**
      * cloud storage alarm pic
      */
     public List<DeviceCloudStoragePicResponse.UrlDto> getPicUrl(List<String> alarmIds) {
@@ -352,10 +390,21 @@ public class JLinkDevice {
      * cloud storage alarm video
      */
     public String getVideoUrl(String startTime, String stopTime) {
-        /*if (!session.isLogin()) {
-            login();
-        }*/
         return new DeviceCloudStorageAlarmRequest().getVideoUrl(startTime, stopTime, getDeviceToken(), mJLinkClient);
+    }
+
+
+    /**
+     * cloud storage alarm video,support download
+     *
+     * @param channel
+     * @param fileFormat
+     * @param startTime
+     * @param stopTime
+     * @return {@link String}
+     */
+    public String getVideoUrl(int channel, String fileFormat, String startTime, String stopTime) {
+        return new DeviceCloudStorageAlarmRequest().getVideoUrl(mDeviceSn, channel, fileFormat, startTime, stopTime, getDeviceToken(), mJLinkClient);
     }
 
     /**

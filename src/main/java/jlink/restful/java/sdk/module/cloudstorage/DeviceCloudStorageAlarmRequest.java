@@ -64,6 +64,35 @@ public class DeviceCloudStorageAlarmRequest {
         }
     }
 
+    public String getVideoUrl(String sn, int channel, String fileFormat, String startTime, String stopTime, String devToken, JLinkClient mJLinkClient) {
+        DeviceCloudStorageVideoResponse response;
+        String requestUrl = String.format("%s/%s/%s", JLinkDomain.OPENAPI_DOMAIN.get(), JLinkDeviceRequestUrl.DEVICE_GETVIDEOURL.get(), devToken);
+        GetVideoUrlDto param = new GetVideoUrlDto();
+        param.setStartTime(startTime);
+        param.setStopTime(stopTime);
+        param.setSn(sn);
+        param.setChannel(channel);
+        param.setFileFormat(fileFormat);
+        String res = JLinkHttpUtil.post(requestUrl, JLinkHeaderUtil.map(mJLinkClient), new Gson().toJson(param));
+        try {
+            response = new Gson().fromJson(res, DeviceCloudStorageVideoResponse.class);
+            if (response.getCode() == JLinkResponseCode.SUCCESS.getCode()) {
+                if (response.getData().getRet() == JLinkDeviceResponseCode.SUCCESS.getCode()) {
+                    return response.getData().getUrl();
+                } else {
+                    //If the RESTFul API request is successful, the device returns the login failure, and the returned information is judged uniformly according to the ret value.
+                    throw new JLinkDeviceInfoException(response.getData().getRet(), JLinkDeviceResponseCode.get(response.getData().getRet()).getMsg());
+                }
+            } else {
+                //RESTFul API request status code judgment
+                throw new JLinkDeviceInfoException(response.getCode(), JLinkResponseCode.get(response.getCode()).getMsg());
+            }
+        } catch (Exception e) {
+            throw new JLinkJsonException(JLinkResponseCode.JSON_ERROR.getCode(), res);
+        }
+    }
+
+
     public List<DeviceCloudStorageVideoListResponse.DataDTO.VideoDTO> getVideoList(String startTime, String stopTime, String devToken, JLinkClient mJLinkClient) {
         DeviceCloudStorageVideoListResponse response;
         String requestUrl = String.format("%s/%s/%s", JLinkDomain.OPENAPI_DOMAIN.get(), JLinkDeviceRequestUrl.DEVICE_GETVIDEOLIST.get(), devToken);
@@ -128,6 +157,40 @@ public class DeviceCloudStorageAlarmRequest {
             this.stopTime = stopTime;
         }
     }
+
+    private static class GetVideoUrlDto extends GetVideoUrlParam {
+        @SerializedName("sn")
+        private String sn;
+        @SerializedName("channel")
+        private int channel;
+        @SerializedName("fileFormat")
+        private String fileFormat;
+
+        public String getSn() {
+            return sn;
+        }
+
+        public void setSn(String sn) {
+            this.sn = sn;
+        }
+
+        public int getChannel() {
+            return channel;
+        }
+
+        public void setChannel(int channel) {
+            this.channel = channel;
+        }
+
+        public String getFileFormat() {
+            return fileFormat;
+        }
+
+        public void setFileFormat(String fileFormat) {
+            this.fileFormat = fileFormat;
+        }
+    }
+
 
     public static class GetVideoPicUrlParam {
         @SerializedName("ObjName")

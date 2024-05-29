@@ -40,7 +40,7 @@ public class DeviceLiveStreamRequest {
         param.setChannel(channel);
         param.setStream(stream);
         param.setProtocol(protocol);
-        param.setUserToken(userToken);
+//        param.setUserToken(userToken);
         param.setUsername(user);
         param.setDevPwd(pass);
         if (null != expireTime && !"".equals(expireTime)) param.setExpireTime(expireTime);

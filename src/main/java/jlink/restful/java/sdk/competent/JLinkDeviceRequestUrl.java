@@ -112,7 +112,10 @@ public enum JLinkDeviceRequestUrl {
 
     PLAYBACK_TIMELINELIST("v3/rtc/device/playbackTimelineList"),
 
-    MEDIA_CONVERT("v3/rtc/device/mediaConvert");
+    MEDIA_CONVERT("v3/rtc/device/mediaConvert"),
+
+    START_RECORDING_VIDEO("v3/rtc/device/startRecordingVideo"),
+    STOP_RECORDING_VIDEO("v3/rtc/device/stopRecordingVideo");
 
 
     private String requestUrl;
