@@ -1,3 +1,11 @@
+## Update Log
+> 2024-05-29
+> Added some new interfaces:
+> 1. Start and stop cloud recording;
+> 2. Playback download;
+> Modify the video coding interface
+> Added example of stream switching
+
 # SDK Development Reference Package
 
 > gson                  version 2.8.5
@@ -127,3 +135,5 @@ String liveStream = jDevice.deviceLivestream(DeviceLiveStreamEnum.STREAM_EXTRA.g
 ```
 String captureUrl = jDevice.capture(channel, jUser);
 ```
+
+
