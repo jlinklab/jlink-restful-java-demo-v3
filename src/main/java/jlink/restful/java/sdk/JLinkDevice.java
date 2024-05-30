@@ -411,9 +411,6 @@ public class JLinkDevice {
      * cloud storage alarm video
      */
     public List<DeviceCloudStorageVideoListResponse.DataDTO.VideoDTO> getVideoList(String startTime, String stopTime) {
-        if (!session.isLogin()) {
-            login();
-        }
         return new DeviceCloudStorageAlarmRequest().getVideoList(startTime, stopTime, getDeviceToken(), mJLinkClient);
     }
 
@@ -421,9 +418,6 @@ public class JLinkDevice {
      * get playback video thumbnail
      */
     public List<DeviceCloudStoragePicResponse.UrlDto> getVideoPicUrl(List<DeviceCloudStorageAlarmRequest.GetVideoPicUrlParam> param) {
-        if (!session.isLogin()) {
-            login();
-        }
         return new DeviceCloudStorageAlarmRequest().getVideoPicUrl(param, getDeviceToken(), mJLinkClient);
     }
 
