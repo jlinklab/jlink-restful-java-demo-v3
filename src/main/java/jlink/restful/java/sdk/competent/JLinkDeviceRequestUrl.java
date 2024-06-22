@@ -9,6 +9,10 @@ public enum JLinkDeviceRequestUrl {
      */
     DEVICE_BIND("v3/rtc/device/bind"),
     /**
+     * unbind device
+     */
+    DEVICE_UNBIND("v3/rtc/device/unbind"),
+    /**
      * AMS DeviceToken
      */
     DEVICE_TOKEN("v3/deviceToken"),

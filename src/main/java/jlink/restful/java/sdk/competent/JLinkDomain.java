@@ -9,7 +9,8 @@ public enum JLinkDomain {
     //userToken and deviceToken Request DomainName
     TKS_DOMAIN("https://api.jftechws.com/tks"),
     AMS_DOMAIN("https://api.jftechws.com/ams"),
-    RS_DOMAIN("https://api.jftechws.com/ams/login/va1");
+    RS_DOMAIN("https://api.jftechws.com/ams/login/va1"),
+    BOSS_DOMAIN("https://api.jftechws.com/boss");
 
 
     private String requestDomain;

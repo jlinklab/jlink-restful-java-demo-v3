@@ -1,4 +1,7 @@
 ## Update Log
+> 2024-06-22
+> Add Boss Card interfaces.
+
 > 2024-05-29
 > Added some new interfaces:
 > 1. Start and stop cloud recording;
