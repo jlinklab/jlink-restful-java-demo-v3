@@ -316,6 +316,10 @@ public class JLinkDevice {
      *
      * @return boolean
      */
+    public String deviceLivestream(String stream, String mediaType, String protocol) {
+        return deviceLivestream(0, stream, mediaType, protocol);
+    }
+
     public String deviceLivestream(String stream, String mediaType, String protocol, JLinkUser jUser) {
         return deviceLivestream(0, stream, mediaType, protocol, jUser);
     }
@@ -338,8 +342,28 @@ public class JLinkDevice {
         return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, expireTime, null, null, jUser.getUserToken(), getDeviceToken(), this.mJLinkClient);
     }
 
-    public String deviceLivestream(String channel, String stream, String mediaType, String protocol, String expireTime, String videoCode, String audioCode, JLinkUser jUser) {
-        return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, channel, stream, mediaType, protocol, expireTime, videoCode, audioCode, jUser.getUserToken(), getDeviceToken(), this.mJLinkClient);
+    public String deviceLivestream(int channel, String stream, String mediaType, String protocol, String expireTime, String videoCode, JLinkUser jUser) {
+        return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, expireTime, videoCode, null, jUser.getUserToken(), getDeviceToken(), this.mJLinkClient);
+    }
+
+    public String deviceLivestream(int channel, String stream, String mediaType, String protocol, String expireTime, String videoCode, String audioCode, JLinkUser jUser) {
+        return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, expireTime, videoCode, audioCode, jUser.getUserToken(), getDeviceToken(), this.mJLinkClient);
+    }
+
+    public String deviceLivestream(int channel, String stream, String mediaType, String protocol) {
+        return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, getDeviceToken(), this.mJLinkClient);
+    }
+
+    public String deviceLivestream(int channel, String stream, String mediaType, String protocol, String expireTime) {
+        return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, expireTime, null, null, getDeviceToken(), this.mJLinkClient);
+    }
+
+    public String deviceLivestream(int channel, String stream, String mediaType, String protocol, String expireTime, String videoCode) {
+        return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, expireTime, videoCode, null, getDeviceToken(), this.mJLinkClient);
+    }
+
+    public String deviceLivestream(int channel, String stream, String mediaType, String protocol, String expireTime, String videoCode, String audioCode) {
+        return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, expireTime, videoCode, audioCode, getDeviceToken(), this.mJLinkClient);
     }
 
     /**

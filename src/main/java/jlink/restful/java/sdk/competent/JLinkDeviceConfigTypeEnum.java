@@ -126,6 +126,8 @@ public enum JLinkDeviceConfigTypeEnum {
     //NetCommon
     NETWORKNETCOMMON("NetWork.NetCommon", new TypeToken<DeviceConfig<NetWorkNetCommonConfig>>() {
     }.getType()),
+    NetWorkAlarmServer("NetWork.AlarmServer", new TypeToken<DeviceConfig<NetWorkAlarmServerConfig>>() {
+    }.getType()),
     //NVR Digital Channel Protocol
     NETWORKREMOTEDEVICEV3("NetWork.RemoteDeviceV3", new TypeToken<DeviceConfig<Object>>() {
     }.getType()),
@@ -277,7 +279,7 @@ public enum JLinkDeviceConfigTypeEnum {
      * name Of Configuration
      */
     private final String configName;
-    private final java.lang.reflect.Type type;
+    private final Type type;
 
     JLinkDeviceConfigTypeEnum(String configName, Type type) {
         this.configName = configName;

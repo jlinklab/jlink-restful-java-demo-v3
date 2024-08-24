@@ -89,9 +89,9 @@ public class DetectHumanDetectionConfig extends DeviceConfig{
         @SerializedName("Sensitivity")
         private Integer sensitivity;
         @SerializedName("ShowRule")
-        private Integer showRule;
+        private Object showRule;
         @SerializedName("ShowTrack")
-        private Integer showTrack;
+        private Object showTrack;
 
         public Boolean getEnable() {
             return enable;
@@ -141,19 +141,19 @@ public class DetectHumanDetectionConfig extends DeviceConfig{
             this.sensitivity = sensitivity;
         }
 
-        public Integer getShowRule() {
+        public Object getShowRule() {
             return showRule;
         }
 
-        public void setShowRule(Integer showRule) {
+        public void setShowRule(Object showRule) {
             this.showRule = showRule;
         }
 
-        public Integer getShowTrack() {
+        public Object getShowTrack() {
             return showTrack;
         }
 
-        public void setShowTrack(Integer showTrack) {
+        public void setShowTrack(Object showTrack) {
             this.showTrack = showTrack;
         }
 
