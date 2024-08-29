@@ -390,4 +390,116 @@ public class DevicePlaybackRequest {
             this.endTime = endTime;
         }
     }
+
+    public String cardPlaybackCalendarImpl(String sn, String event, int channel, int month, int year, String type, String devToken, JLinkClient mJLinkClient) {
+        CardPlaybackCalendarResponse response;
+        String requestUrl = String.format("%s/%s/%s", JLinkDomain.OPENAPI_DOMAIN.get(), JLinkDeviceRequestUrl.CARD_PLAYBACK_CALENDAR.get(), devToken);
+        CardPlaybackCalendar param = new CardPlaybackCalendar();
+        param.setSn(sn);
+        CardPlaybackCalendar.OPSCalendar dto = new CardPlaybackCalendar.OPSCalendar();
+        dto.setEvent(StringUtils.isNotBlank(event) ? event : "*");
+        dto.setChannel(channel);
+        dto.setMonth(month);
+        dto.setYear(year);
+        dto.setFileType(StringUtils.isNotBlank(type) ? type : "h264");
+        param.setOpsCalendar(dto);
+        String res = JLinkHttpUtil.httpsRequest(requestUrl, JLinkMethodType.POST.get(), JLinkHeaderUtil.map(mJLinkClient), new Gson().toJson(param));
+        try {
+            response = new Gson().fromJson(res, CardPlaybackCalendarResponse.class);
+            if (response.getCode() == JLinkResponseCode.SUCCESS.getCode()) {
+                return new Gson().toJson(response);
+            } else {
+                throw new JLinkException(response.getCode(), JLinkResponseCode.get(response.getCode()).getMsg());
+            }
+        } catch (Exception e) {
+            throw new JLinkJsonException(JLinkResponseCode.JSON_ERROR.getCode(), res);
+        }
+    }
+
+    public static class CardPlaybackCalendar {
+        @SerializedName("Sn")
+        private String sn;
+        @SerializedName("Name")
+        private String name = "OPSCalendar";
+        @SerializedName("OPSCalendar")
+        private OPSCalendar opsCalendar;
+
+        private static class OPSCalendar {
+
+            @SerializedName("Event")
+            private String event;
+            @SerializedName("Channel")
+            private Integer channel;
+            @SerializedName("FileType")
+            private String fileType;
+            @SerializedName("Month")
+            private Integer month;
+            @SerializedName("Year")
+            private Integer year;
+
+            public String getEvent() {
+                return event;
+            }
+
+            public void setEvent(String event) {
+                this.event = event;
+            }
+
+            public Integer getChannel() {
+                return channel;
+            }
+
+            public void setChannel(Integer channel) {
+                this.channel = channel;
+            }
+
+            public String getFileType() {
+                return fileType;
+            }
+
+            public void setFileType(String fileType) {
+                this.fileType = fileType;
+            }
+
+            public Integer getMonth() {
+                return month;
+            }
+
+            public void setMonth(Integer month) {
+                this.month = month;
+            }
+
+            public Integer getYear() {
+                return year;
+            }
+
+            public void setYear(Integer year) {
+                this.year = year;
+            }
+        }
+
+        public String getSn() {
+            return sn;
+        }
+
+        public void setSn(String sn) {
+            this.sn = sn;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public OPSCalendar getOpsCalendar() {
+            return opsCalendar;
+        }
+
+        public void setOpsCalendar(OPSCalendar opsCalendar) {
+            this.opsCalendar = opsCalendar;
+        }
+    }
 }

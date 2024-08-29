@@ -27,7 +27,7 @@ public class DeviceGetStatusRequest {
         List<String> str = new ArrayList<>();
         str.add(token);
         StatusDto dto = new StatusDto();
-        dto.setToken(str);
+        dto.setDeviceTokenList(str);
         dto.setOtherStatus(true);
         //Assemble the request address for obtaining the device ret requestDeviceStatusUrl
         String requestDeviceStatusUrl = String.format("%s/%s", JLinkDomain.OPENAPI_DOMAIN.get(), JLinkDeviceRequestUrl.DEVICE_STATUS.get());
@@ -47,19 +47,19 @@ public class DeviceGetStatusRequest {
         /**
          * Device Token Collection
          */
-        private List<String> token;
+        private List<String> deviceTokenList;
 
         /**
          * The value is true to return rps, dss, p2p detailed ret; the default is false
          */
         private boolean otherStatus;
 
-        public List<String> getToken() {
-            return token;
+        public List<String> getDeviceTokenList() {
+            return deviceTokenList;
         }
 
-        public void setToken(List<String> token) {
-            this.token = token;
+        public void setDeviceTokenList(List<String> deviceTokenList) {
+            this.deviceTokenList = deviceTokenList;
         }
 
         public boolean isOtherStatus() {

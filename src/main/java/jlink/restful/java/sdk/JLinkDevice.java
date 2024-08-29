@@ -21,6 +21,7 @@ import jlink.restful.java.sdk.module.keepalive.DeviceKeepaliveResponse;
 import jlink.restful.java.sdk.module.livestream.DeviceLiveStreamRequest;
 import jlink.restful.java.sdk.module.livestream.DeviceMediaConvertRequest;
 import jlink.restful.java.sdk.module.livestream.DeviceMediaConvertResponse;
+import jlink.restful.java.sdk.module.livestream.DeviceTalkbackUrlRequest;
 import jlink.restful.java.sdk.module.localpic.DeviceLocalPicRequest;
 import jlink.restful.java.sdk.module.login.DeviceLoginData;
 import jlink.restful.java.sdk.module.login.DeviceLoginRequest;
@@ -338,6 +339,10 @@ public class JLinkDevice {
         return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, jUser.getUserToken(), getDeviceToken(), this.mJLinkClient);
     }
 
+    public String deviceLivestream(int channel, String stream, String mediaType, String protocol) {
+        return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, getDeviceToken(), this.mJLinkClient);
+    }
+
     public String deviceLivestream(int channel, String stream, String mediaType, String protocol, String expireTime, JLinkUser jUser) {
         return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, expireTime, null, null, jUser.getUserToken(), getDeviceToken(), this.mJLinkClient);
     }
@@ -350,10 +355,6 @@ public class JLinkDevice {
         return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, expireTime, videoCode, audioCode, jUser.getUserToken(), getDeviceToken(), this.mJLinkClient);
     }
 
-    public String deviceLivestream(int channel, String stream, String mediaType, String protocol) {
-        return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, getDeviceToken(), this.mJLinkClient);
-    }
-
     public String deviceLivestream(int channel, String stream, String mediaType, String protocol, String expireTime) {
         return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, expireTime, null, null, getDeviceToken(), this.mJLinkClient);
     }
@@ -364,6 +365,10 @@ public class JLinkDevice {
 
     public String deviceLivestream(int channel, String stream, String mediaType, String protocol, String expireTime, String videoCode, String audioCode) {
         return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, expireTime, videoCode, audioCode, getDeviceToken(), this.mJLinkClient);
+    }
+
+    public String deviceTalkbackUrl(String mediaType, String user, String pass, String channel){
+        return new DeviceTalkbackUrlRequest().deviceTalkbackUrl(mediaType,user,pass,channel,getDeviceToken(),mJLinkClient);
     }
 
     /**
@@ -528,6 +533,10 @@ public class JLinkDevice {
 
     public String playbackTimelineList(String sn, String beginTime, String endTime, String event, int lowChannel, String lowStreamType, int highChannel, String highStreamType, String type) {
         return new DevicePlaybackRequest().playbackTimelineListImpl(sn, beginTime, endTime, event, lowChannel, lowStreamType, highChannel, highStreamType, type, getDeviceToken(), mJLinkClient);
+    }
+
+    public String cardPlaybackCalendarImpl(String sn, String event, int channel, int month, int year, String type) {
+        return new DevicePlaybackRequest().cardPlaybackCalendarImpl(sn, event, channel, month, year, type, getDeviceToken(), mJLinkClient);
     }
 
     /**

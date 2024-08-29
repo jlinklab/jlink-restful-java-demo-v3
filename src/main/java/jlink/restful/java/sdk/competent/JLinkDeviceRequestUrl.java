@@ -9,6 +9,10 @@ public enum JLinkDeviceRequestUrl {
      */
     DEVICE_BIND("v3/rtc/device/bind"),
     /**
+     * unbind device
+     */
+    DEVICE_UNBIND("v3/rtc/device/unbind"),
+    /**
      * AMS DeviceToken
      */
     DEVICE_TOKEN("v3/deviceToken"),
@@ -111,6 +115,8 @@ public enum JLinkDeviceRequestUrl {
     TAILORED_CONFIG("v3/rtc/device/getTailoredConfig"),
 
     PLAYBACK_TIMELINELIST("v3/rtc/device/playbackTimelineList"),
+    CARD_PLAYBACK_CALENDAR("v3/rtc/device/cardPlaybackCalendar"),
+    TALKBACK_URL("v3/rtc/device/talkbackUrl"),
 
     MEDIA_CONVERT("v3/rtc/device/mediaConvert"),
 
