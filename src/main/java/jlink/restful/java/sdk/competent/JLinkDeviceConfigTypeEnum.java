@@ -269,6 +269,10 @@ public enum JLinkDeviceConfigTypeEnum {
     }.getType()),
 
     CustomerFlow("Detect.CustomerFlow", new TypeToken<DeviceConfig<CustomerFlowConfig>>() {
+    }.getType()),
+    AISceneAreaRule("Detect.AISceneAreaRule", new TypeToken<DeviceConfig<AISceneAreaRuleConfig>>() {
+    }.getType()),
+    PMSContinuousPush("NetWork.PMSContinuousPush", new TypeToken<DeviceConfig<PMSContinuousPushConfig>>() {
     }.getType())
 
 //    NetUseDigitalEncode("NetUse.DigitalEncode.[0]", new TypeToken<DeviceConfig<Object>>() {

@@ -41,6 +41,7 @@ public class DeviceTokenRequest {
         List<String> strSn = new ArrayList<>();
         strSn.add(sn);
         dto.setSns(strSn);
+        JLinkLog.i("GetDeviceToken Param:" + new Gson().toJson(dto));
         String key = aesUtils.keyFilter(timeMillis, jClient.getAppSecret());
         //body aes string
         String aesData = "";
@@ -86,7 +87,9 @@ public class DeviceTokenRequest {
 
     private static String decryptDeviceToken(String deviceToken, String key, JLinkAesUtil aesUtils) {
         try {
+            JLinkLog.i("AesDeviceToken:" + deviceToken);
             deviceToken = aesUtils.decryptToHexString(deviceToken, key);
+            JLinkLog.i("DecryptDeviceToken:" + deviceToken);
         } catch (Exception e) {
             throw new JLinkException(JLinkResponseCode.AES_ERROR.getCode(), JLinkResponseCode.AES_ERROR.getMsg());
         }

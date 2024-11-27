@@ -13,10 +13,14 @@ public enum DeviceLiveStreamEnum {
     MEDIATYPE_FLV("flv"),
     MEDIATYPE_RTMP("rtmp"),
     MEDIATYPE_WEBRTC("webrtc"),
+    MEDIATYPE_WS("ws"),
     STREAM_MAIN("0"),
     STREAM_EXTRA("1"),
     PROTOCOL_TS("ts"),
     PROTOCOL_FMP4("fmp4"),
+    PROTOCOL_DAT("dat"),
+    PROTOCOL_FLV("flv"),
+    PROTOCOL_ENHANCED_FLV("enhanced-flv"),
     PROTOCOL_ENHANCED("enhanced"),
     ;
 

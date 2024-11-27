@@ -16,6 +16,7 @@ import jlink.restful.java.sdk.module.opdev.opreqversion.OPReqVersionResponse;
 import jlink.restful.java.sdk.module.opdev.opsystemconfig.OPSystemConfigResponse;
 import jlink.restful.java.sdk.module.opdev.optimequery.OPTimeQueryResponse;
 import jlink.restful.java.sdk.module.opdev.optimesetting.OPTimeSettingResponse;
+import jlink.restful.java.sdk.module.opdev.opuploadtocaps.OPUploadToCapsResponse;
 import jlink.restful.java.sdk.module.opdev.opversionlist.OPVersionListResponse;
 import jlink.restful.java.sdk.module.opdev.opvoicelightalarm.OPVoiceLightAlarmResponse;
 
@@ -53,6 +54,8 @@ public enum DeviceOperateEnum {
     }.getType()),
     OPTimeSetting("OPTimeSetting", new TypeToken<DeviceOperateResponse<OPTimeSettingResponse>>() {
     }.getType()),
+    OPUploadToCaps("OPUploadToCaps", new TypeToken<DeviceOperateResponse<OPUploadToCapsResponse>>() {
+    }.getType()),
     OPSystemZONE("System.TimeZone", new TypeToken<DeviceOperateResponse<OPTimeQueryResponse>>() {
     }.getType()),
     OPRecordTimeQuery("OPFileQuery", new TypeToken<DeviceOperateResponse<OPFileQueryResponse>>() {
@@ -79,7 +82,7 @@ public enum DeviceOperateEnum {
      * nameOfConfiguration
      */
     private final String opdev;
-    private final java.lang.reflect.Type type;
+    private final Type type;
 
     DeviceOperateEnum(String opdev, Type type) {
         this.opdev = opdev;

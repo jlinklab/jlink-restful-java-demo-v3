@@ -66,6 +66,10 @@ public enum JLinkDeviceRequestUrl {
      */
     DEVICE_LIVESTREAM("v3/rtc/device/livestream"),
     /**
+     * getMediaUrls
+     */
+    DEVICE_GETMEDIAURLS("v3/rtc/device/getMediaUrls"),
+    /**
      * login
      */
     DEVICE_LOGIN("v3/rtc/device/login"),

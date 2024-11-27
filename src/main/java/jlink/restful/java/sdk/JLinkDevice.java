@@ -18,10 +18,7 @@ import jlink.restful.java.sdk.module.info.DeviceInfoRequest;
 import jlink.restful.java.sdk.module.info.DeviceInfoResponse;
 import jlink.restful.java.sdk.module.keepalive.DeviceKeepAliveEnum;
 import jlink.restful.java.sdk.module.keepalive.DeviceKeepaliveResponse;
-import jlink.restful.java.sdk.module.livestream.DeviceLiveStreamRequest;
-import jlink.restful.java.sdk.module.livestream.DeviceMediaConvertRequest;
-import jlink.restful.java.sdk.module.livestream.DeviceMediaConvertResponse;
-import jlink.restful.java.sdk.module.livestream.DeviceTalkbackUrlRequest;
+import jlink.restful.java.sdk.module.livestream.*;
 import jlink.restful.java.sdk.module.localpic.DeviceLocalPicRequest;
 import jlink.restful.java.sdk.module.login.DeviceLoginData;
 import jlink.restful.java.sdk.module.login.DeviceLoginRequest;
@@ -367,8 +364,31 @@ public class JLinkDevice {
         return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, expireTime, videoCode, audioCode, getDeviceToken(), this.mJLinkClient);
     }
 
-    public String deviceTalkbackUrl(String mediaType, String user, String pass, String channel){
-        return new DeviceTalkbackUrlRequest().deviceTalkbackUrl(mediaType,user,pass,channel,getDeviceToken(),mJLinkClient);
+    public String deviceTalkbackUrl(String mediaType, String user, String pass, String channel) {
+        return new DeviceTalkbackUrlRequest().deviceTalkbackUrl(mediaType, user, pass, channel, getDeviceToken(), mJLinkClient);
+    }
+
+
+    /**
+     * Get Media Urls
+     *
+     * @param user
+     * @param pass
+     * @param userMax
+     * @param expireTime
+     * @param mediaInfos
+     * @return {@link DeviceMediaUrlsResponse}
+     */
+    public DeviceMediaUrlsResponse getMediaUrls(String user, String pass, int userMax, String expireTime, List<DeviceMediaUrlsRequest.MediaInfo> mediaInfos) {
+        return new DeviceMediaUrlsRequest().getMediaUrls(user, pass, userMax, expireTime, mediaInfos, getDeviceToken(), this.mJLinkClient);
+    }
+
+    public DeviceMediaUrlsResponse getMediaUrls( int userMax, String expireTime, List<DeviceMediaUrlsRequest.MediaInfo> mediaInfos) {
+        return getMediaUrls(mDeviceUser, mDevicePass, userMax, expireTime, mediaInfos);
+    }
+
+    public DeviceMediaUrlsResponse getAllDefaultMediaUrls() {
+        return new DeviceMediaUrlsRequest().getAllDefaultMediaUrls(mDeviceUser, mDevicePass, getDeviceToken(), this.mJLinkClient);
     }
 
     /**
