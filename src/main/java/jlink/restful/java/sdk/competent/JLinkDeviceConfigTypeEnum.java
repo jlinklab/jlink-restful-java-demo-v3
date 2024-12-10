@@ -115,7 +115,7 @@ public enum JLinkDeviceConfigTypeEnum {
     UARTPTZ("Uart.PTZ", new TypeToken<DeviceConfig<UartPTZConfig>>() {
     }.getType()),
     //PTZPreset
-    UARTPTZPRESET("Uart.PTZPreset", new TypeToken<DeviceConfig<Object>>() {
+    UARTPTZPRESET("Uart.PTZPreset", new TypeToken<DeviceConfig<UartPTZPresetConfig>>() {
     }.getType()),
     //PTZTour
     UARTPTZTOUR("Uart.PTZTour", new TypeToken<DeviceConfig<Object>>() {
@@ -135,7 +135,7 @@ public enum JLinkDeviceConfigTypeEnum {
     NETWORKNETDHCP("NetWork.NetDHCP", new TypeToken<DeviceConfig<NetWorkNetDHCPConfig>>() {
     }.getType()),
     //NetDDNS
-    NETWORKNETDDNS("NetWork.NetDDNS", new TypeToken<DeviceConfig<Object>>() {
+    NETWORKNETDDNS("NetWork.NetDDNS", new TypeToken<DeviceConfig<NetWorkNetDDNSConfig>>() {
     }.getType()),
     //NetEmail
     NETWORKNETEMAIL("NetWork.NetEmail", new TypeToken<DeviceConfig<NetWorkNetEmailConfig>>() {
