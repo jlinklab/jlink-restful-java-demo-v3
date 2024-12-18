@@ -39,12 +39,11 @@ public class JLinkDemo {
                 "5b027c14d371332e88a9cbae30375ee7",
                 "fd664d5fa6974ec09023818f68b23212",
                 5);
-
         /**
          * account is the open platform appKey
          * pass is the open platform appSecret
          */
-        JLinkUser jUser = new JLinkUser(jClient);
+        JLinkUser jUser = new JLinkUser(jClient,"account","pass");
 
         /**
          * sn devise serial number；
@@ -74,7 +73,7 @@ public class JLinkDemo {
          * Advanced features require the use of JLinkUser
          */
         try {
-            String liveStream = jDevice.deviceLivestream(DeviceLiveStreamEnum.STREAM_EXTRA.get(), DeviceLiveStreamEnum.MEDIATYPE_HLS.get(), DeviceLiveStreamEnum.PROTOCOL_TS.get(), jUser);
+            String liveStream = jDevice.deviceLivestream(DeviceLiveStreamEnum.STREAM_EXTRA.get(), DeviceLiveStreamEnum.MEDIATYPE_HLS.get(), DeviceLiveStreamEnum.PROTOCOL_TS.get());
             JLinkLog.i(liveStream);
         } catch (JLinkDeviceLiveStreamException e) {
             JLinkLog.e(e.toString());
@@ -165,7 +164,7 @@ public class JLinkDemo {
          */
         try {
             List<DeviceCloudStoragePicResponse.UrlDto> picUrl = jDevice.getPicUrl(Arrays.asList("135465"));
-            String videoUrl = jDevice.getVideoUrl("2024-03-21 13:11:35", "2024-03-22 13:13:35");
+            String videoUrl = jDevice.getVideoUrl("2024-04-15 18:36:27", "2024-04-16 18:36:27");
         } catch (Exception e) {
             JLinkLog.e(e.toString());
         }
