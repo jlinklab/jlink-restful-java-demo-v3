@@ -122,6 +122,10 @@ public class JLinkDevice {
         return new DeviceGetStatusRequest().getDeviceStatus(getDeviceToken(), this.mJLinkClient);
     }
 
+    public DeviceStatusData deviceStatus(List<String> deviceTokenList) {
+        return new DeviceGetStatusRequest().getDeviceStatus(deviceTokenList, this.mJLinkClient);
+    }
+
     /**
      * Low-power device wakeup
      */
@@ -134,6 +138,10 @@ public class JLinkDevice {
         } catch (Exception e) {
             throw new JLinkJsonException(JLinkResponseCode.JSON_ERROR.getCode(), res);
         }
+    }
+
+    public boolean checkLogin() {
+        return session.isLogin();
     }
 
     /**
@@ -158,6 +166,15 @@ public class JLinkDevice {
      */
     public DeviceLoginData login() {
         DeviceLoginData loginData = deviceLoginByUser(mDeviceUser, mDevicePass, false);
+        if (loginData.getRet() == 100) {
+            session.setLogin(true);
+            //todo Login successful keep heartbeat
+        }
+        return loginData;
+    }
+
+    public DeviceLoginData loginByMD5Pass() {
+        DeviceLoginData loginData = deviceLoginNoneEncrypted(mDeviceUser, mDevicePass);
         if (loginData.getRet() == 100) {
             session.setLogin(true);
             //todo Login successful keep heartbeat
@@ -383,7 +400,7 @@ public class JLinkDevice {
         return new DeviceMediaUrlsRequest().getMediaUrls(user, pass, userMax, expireTime, mediaInfos, getDeviceToken(), this.mJLinkClient);
     }
 
-    public DeviceMediaUrlsResponse getMediaUrls( int userMax, String expireTime, List<DeviceMediaUrlsRequest.MediaInfo> mediaInfos) {
+    public DeviceMediaUrlsResponse getMediaUrls(int userMax, String expireTime, List<DeviceMediaUrlsRequest.MediaInfo> mediaInfos) {
         return getMediaUrls(mDeviceUser, mDevicePass, userMax, expireTime, mediaInfos);
     }
 
@@ -614,6 +631,10 @@ public class JLinkDevice {
 
     public DeviceLoginData deviceLoginByUser(String userName, String passWord, Boolean share) {
         return new DeviceLoginRequest().deviceLoginByUser(userName, passWord, getDeviceToken(), share, this.mJLinkClient);
+    }
+
+    public DeviceLoginData deviceLoginNoneEncrypted(String md5UserName, String md5PassWord) {
+        return new DeviceLoginRequest().deviceLoginNoneEncrypted(md5UserName, md5PassWord, getDeviceToken(), this.mJLinkClient);
     }
 
     /**

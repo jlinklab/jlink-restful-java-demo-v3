@@ -13,9 +13,11 @@ public enum JLinkDeviceInfoEnum {
     StorageInfo,
     //Wifi Mac
     WifiRouteInfo,
-    
-    SystemInfoEx
-    ;
+    /**
+     * 4GInfo
+     */
+    _4GInfo,
+    SystemInfoEx;
 
     public static JLinkDeviceInfoEnum get(String mInfo) {
         for (JLinkDeviceInfoEnum value : values()) {

@@ -26,8 +26,12 @@ public class DeviceGetStatusRequest {
     public DeviceStatusData getDeviceStatus(String token, JLinkClient jClient) {
         List<String> str = new ArrayList<>();
         str.add(token);
+        return getDeviceStatus(str, jClient);
+    }
+
+    public DeviceStatusData getDeviceStatus(List<String> tokenList, JLinkClient jClient) {
         StatusDto dto = new StatusDto();
-        dto.setDeviceTokenList(str);
+        dto.setDeviceTokenList(tokenList);
         dto.setOtherStatus(true);
         //Assemble the request address for obtaining the device ret requestDeviceStatusUrl
         String requestDeviceStatusUrl = String.format("%s/%s", JLinkDomain.OPENAPI_DOMAIN.get(), JLinkDeviceRequestUrl.DEVICE_STATUS.get());

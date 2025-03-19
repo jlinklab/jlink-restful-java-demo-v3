@@ -29,13 +29,16 @@ public class DeviceInfoResponse {
 
         @SerializedName("SystemInfoEx")
         private SystemInfoExDTO systemInfoEx;
-        
+
         @SerializedName("StorageInfo")
         private List<OPStorageInfoResponse.StorageInfoDTO> storageInfo;
-        
+
         @SerializedName("WifiRouteInfo")
         private WifiRouteInfo wifiRouteInfo;
-        
+
+        @SerializedName("4GInfo")
+        private G4Info g4Info;
+
         public List<OPStorageInfoResponse.StorageInfoDTO> getStorageInfo() {
             return storageInfo;
         }
@@ -90,6 +93,14 @@ public class DeviceInfoResponse {
 
         public void setWifiRouteInfo(WifiRouteInfo wifiRouteInfo) {
             this.wifiRouteInfo = wifiRouteInfo;
+        }
+
+        public G4Info getG4Info() {
+            return g4Info;
+        }
+
+        public void setG4Info(G4Info g4Info) {
+            this.g4Info = g4Info;
         }
 
         public static class SystemInfoDTO {
@@ -294,7 +305,7 @@ public class DeviceInfoResponse {
                 this.videoOutChannel = videoOutChannel;
             }
         }
-        
+
         public static class SystemInfoExDTO {
             @SerializedName("McuVersion")
             private String mcuVersion;
@@ -307,17 +318,17 @@ public class DeviceInfoResponse {
                 this.mcuVersion = mcuVersion;
             }
         }
-        
+
         public static class WifiRouteInfo {
             @SerializedName("Eth0Status")
             public boolean eth0Status;
-            
+
             @SerializedName("SignalLevel")
             private Integer signalLevel;
-            
+
             @SerializedName("WlanMac")
             private String wlanMac;
-            
+
             @SerializedName("WlanStatus")
             private boolean wlanStatus;
 
@@ -351,6 +362,19 @@ public class DeviceInfoResponse {
 
             public void setWlanStatus(boolean wlanStatus) {
                 this.wlanStatus = wlanStatus;
+            }
+        }
+
+        public static class G4Info {
+            @SerializedName("SignalLevel")
+            public int signalLevel;
+
+            public int getSignalLevel() {
+                return signalLevel;
+            }
+
+            public void setSignalLevel(int signalLevel) {
+                this.signalLevel = signalLevel;
             }
         }
     }

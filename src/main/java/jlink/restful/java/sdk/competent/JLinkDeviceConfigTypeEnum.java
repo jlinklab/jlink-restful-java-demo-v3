@@ -273,7 +273,11 @@ public enum JLinkDeviceConfigTypeEnum {
     AISceneAreaRule("Detect.AISceneAreaRule", new TypeToken<DeviceConfig<AISceneAreaRuleConfig>>() {
     }.getType()),
     PMSContinuousPush("NetWork.PMSContinuousPush", new TypeToken<DeviceConfig<PMSContinuousPushConfig>>() {
-    }.getType())
+    }.getType()),
+    ExtDevIDCfg("ExtDevIDConfig.ExtDevIDCfg", new TypeToken<DeviceConfig<ExDevIDConfig>>() {
+    }.getType()),
+    DETECTPETDETECTION("Detect.PetDetection", new TypeToken<DeviceConfig<DetectPetDetectionConfig>>() {
+    }.getType()),
 
 //    NetUseDigitalEncode("NetUse.DigitalEncode.[0]", new TypeToken<DeviceConfig<Object>>() {
 //    }.getType()),

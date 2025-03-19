@@ -42,6 +42,14 @@ public class DeviceLoginRequest {
         return deviceLogin(dto, devToken, jLinkClient);
     }
 
+    public DeviceLoginData deviceLoginNoneEncrypted(String devUsername, String devPassword, String devToken, JLinkClient jLinkClient) {
+        DeviceLoginDto dto = new DeviceLoginDto();
+        dto.setDevUsername(devUsername);
+        dto.setDevPassword(devPassword);
+        dto.setEncryptType("DISABLE");
+        return deviceLogin(dto, devToken, jLinkClient);
+    }
+
     /**
      * Login By Token
      *
@@ -77,6 +85,7 @@ public class DeviceLoginRequest {
             bo.setDevPassword(dto.getDevPassword());
             bo.setLoginToken(dto.getLoginToken());
             bo.setShare(dto.getShare());
+            bo.setEncryptType(dto.getEncryptType());
             //send https request
             String res = JLinkHttpUtil.httpsRequest(requestDeviceLoginUrl, JLinkMethodType.POST.get(), JLinkHeaderUtil.map(jClient), new Gson().toJson(bo));
             JLinkLog.d("Login res:\r\n" + res);
@@ -167,6 +176,8 @@ public class DeviceLoginRequest {
 
         private Boolean share;
 
+        private String encryptType = "MD5";
+
         public String getDevUsername() {
             return devUsername;
         }
@@ -197,6 +208,14 @@ public class DeviceLoginRequest {
 
         public void setShare(Boolean share) {
             this.share = share;
+        }
+
+        public String getEncryptType() {
+            return encryptType;
+        }
+
+        public void setEncryptType(String encryptType) {
+            this.encryptType = encryptType;
         }
     }
 

@@ -26,7 +26,7 @@ public class DeviceInfoRequest {
         DeviceInfoResponse response;
         String requestDeviceInfoUrl = String.format("%s/%s/%s", JLinkDomain.OPENAPI_DOMAIN.get(), JLinkDeviceRequestUrl.DEVICE_INFO.get(), devToken);
         Map<String, String> param = new HashMap<>(1);
-        param.put("Name", infoEnum.name());
+        param.put("Name", infoEnum.name().equalsIgnoreCase("_4GInfo") ? "4GInfo" : infoEnum.name());
         //send https request
         String res = JLinkHttpUtil.httpsRequest(requestDeviceInfoUrl, JLinkMethodType.POST.get(), JLinkHeaderUtil.map(mJLinkClient), new Gson().toJson(param));
         try {
