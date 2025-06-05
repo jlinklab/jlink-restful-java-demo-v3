@@ -1,0 +1,52 @@
+package jlink.restful.java.sdk.module.opdev.opupgradeprogress;
+
+import com.google.gson.annotations.SerializedName;
+import jlink.restful.java.sdk.module.opdev.DeviceOperateResponse;
+
+
+/**
+ * @author hjm
+ * @date 2025/04/03
+ */
+public class OPUpgradeProgressResponse extends DeviceOperateResponse {
+    @SerializedName("Name")
+    private String name;
+    @SerializedName("Ret")
+    private Integer ret;
+    @SerializedName("SessionID")
+    private String sessionID;
+    @SerializedName("UpgradeType")
+    private int upgradeType;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getRet() {
+        return ret;
+    }
+
+    public void setRet(Integer ret) {
+        this.ret = ret;
+    }
+
+    public String getSessionID() {
+        return sessionID;
+    }
+
+    public void setSessionID(String sessionID) {
+        this.sessionID = sessionID;
+    }
+
+    public int getUpgradeType() {
+        return upgradeType;
+    }
+
+    public void setUpgradeType(int upgradeType) {
+        this.upgradeType = upgradeType;
+    }
+}

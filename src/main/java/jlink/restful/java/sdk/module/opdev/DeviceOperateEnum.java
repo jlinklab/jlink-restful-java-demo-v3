@@ -12,10 +12,12 @@ import jlink.restful.java.sdk.module.opdev.opfilequery.OPFileQueryResponse;
 import jlink.restful.java.sdk.module.opdev.oplogmanager.OPLogManagerResponse;
 import jlink.restful.java.sdk.module.opdev.oplogquery.OPLogQueryResponse;
 import jlink.restful.java.sdk.module.opdev.opmachine.OPMachineResponse;
+import jlink.restful.java.sdk.module.opdev.opremotectrl.OPRemoteCtrlResponse;
 import jlink.restful.java.sdk.module.opdev.opreqversion.OPReqVersionResponse;
 import jlink.restful.java.sdk.module.opdev.opsystemconfig.OPSystemConfigResponse;
 import jlink.restful.java.sdk.module.opdev.optimequery.OPTimeQueryResponse;
 import jlink.restful.java.sdk.module.opdev.optimesetting.OPTimeSettingResponse;
+import jlink.restful.java.sdk.module.opdev.opupgradeprogress.OPUpgradeProgressResponse;
 import jlink.restful.java.sdk.module.opdev.opuploadtocaps.OPUploadToCapsResponse;
 import jlink.restful.java.sdk.module.opdev.opversionlist.OPVersionListResponse;
 import jlink.restful.java.sdk.module.opdev.opvoicelightalarm.OPVoiceLightAlarmResponse;
@@ -68,6 +70,8 @@ public enum DeviceOperateEnum {
     }.getType()),
     OPCloudUpgradeStart("OPCloudUpgradeStart", new TypeToken<DeviceOperateResponse<OPCloudUpgradeStartResponse>>() {
     }.getType()),
+    OPUpgradeProgress("OPUpgradeProgress", new TypeToken<DeviceOperateResponse<OPUpgradeProgressResponse>>() {
+    }.getType()),
     OPCloudUpgradeStop("OPCloudUpgradeStop", new TypeToken<DeviceOperateResponse<OPCloudUpgradeStopResponse>>() {
     }.getType()),
     OPCloudFileGetDownloadState("OPCloudFileGetDownloadState", new TypeToken<DeviceOperateResponse<OPCloudFileGetDownloadStateResponse>>() {
@@ -75,6 +79,8 @@ public enum DeviceOperateEnum {
     OPCloudUpgradeGetBurnProgress("OPCloudUpgradeGetBurnProgress", new TypeToken<DeviceOperateResponse<OPCloudUpgradeGetBurnProgressResponse>>() {
     }.getType()),
     OPVoiceLightAlarm("OPVoiceLightAlarm", new TypeToken<DeviceOperateResponse<OPVoiceLightAlarmResponse>>() {
+    }.getType()),
+    OPRemoteCtrl("OPRemoteCtrl", new TypeToken<DeviceOperateResponse<OPRemoteCtrlResponse>>() {
     }.getType());
 
 
@@ -82,7 +88,7 @@ public enum DeviceOperateEnum {
      * nameOfConfiguration
      */
     private final String opdev;
-    private final Type type;
+    private final java.lang.reflect.Type type;
 
     DeviceOperateEnum(String opdev, Type type) {
         this.opdev = opdev;

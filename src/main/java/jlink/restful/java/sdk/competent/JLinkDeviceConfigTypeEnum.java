@@ -270,6 +270,12 @@ public enum JLinkDeviceConfigTypeEnum {
 
     CustomerFlow("Detect.CustomerFlow", new TypeToken<DeviceConfig<CustomerFlowConfig>>() {
     }.getType()),
+    CustomerFlow0("Detect.CustomerFlow.[0]", new TypeToken<DeviceConfig<CustomerFlowConfig>>() {
+    }.getType()),
+    HumanFallDown("Detect.HumanFallDown", new TypeToken<DeviceConfig<Object>>() {
+    }.getType()),
+    NetWorkMQTTALL("NetWork.MQTTALL", new TypeToken<DeviceConfig<Object>>() {
+    }.getType()),
     AISceneAreaRule("Detect.AISceneAreaRule", new TypeToken<DeviceConfig<AISceneAreaRuleConfig>>() {
     }.getType()),
     PMSContinuousPush("NetWork.PMSContinuousPush", new TypeToken<DeviceConfig<PMSContinuousPushConfig>>() {
@@ -278,7 +284,8 @@ public enum JLinkDeviceConfigTypeEnum {
     }.getType()),
     DETECTPETDETECTION("Detect.PetDetection", new TypeToken<DeviceConfig<DetectPetDetectionConfig>>() {
     }.getType()),
-
+    IntellAlertAlarm("Alarm.IntellAlertAlarm", new TypeToken<DeviceConfig<IntellAlertAlarmConfig>>() {
+    }.getType()),
 //    NetUseDigitalEncode("NetUse.DigitalEncode.[0]", new TypeToken<DeviceConfig<Object>>() {
 //    }.getType()),
     ;
@@ -287,7 +294,7 @@ public enum JLinkDeviceConfigTypeEnum {
      * name Of Configuration
      */
     private final String configName;
-    private final Type type;
+    private final java.lang.reflect.Type type;
 
     JLinkDeviceConfigTypeEnum(String configName, Type type) {
         this.configName = configName;

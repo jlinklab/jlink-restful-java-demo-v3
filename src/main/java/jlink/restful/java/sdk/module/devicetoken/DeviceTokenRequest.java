@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 import jlink.restful.java.sdk.JLinkClient;
 import jlink.restful.java.sdk.competent.JLinkDeviceRequestUrl;
 import jlink.restful.java.sdk.competent.JLinkDomain;
+import jlink.restful.java.sdk.competent.JLinkMethodType;
 import jlink.restful.java.sdk.competent.JLinkResponseCode;
+import jlink.restful.java.sdk.exception.JLinkDeviceInfoException;
 import jlink.restful.java.sdk.exception.JLinkException;
 import jlink.restful.java.sdk.exception.JLinkJsonException;
 import jlink.restful.java.sdk.exception.JLinkSignatureException;
@@ -151,6 +153,29 @@ public class DeviceTokenRequest {
 
         public void setData(List<DataDTO> data) {
             this.data = data;
+        }
+    }
+
+
+    public String getDeviceToken(JLinkClient jClient, String sn, String accessToken) {
+        String url = String.format("%s/%s", JLinkDomain.OPENAPI_DOMAIN.get(), JLinkDeviceRequestUrl.DEVICE_TOKEN_V3.get());
+        DeviceTokenDto dto = new DeviceTokenDto();
+        List<String> strSn = new ArrayList<>();
+        strSn.add(sn);
+        dto.setSns(strSn);
+        dto.setAccessToken(accessToken);
+        JLinkLog.i("GetDeviceToken Param:" + new Gson().toJson(dto));
+        String res = JLinkHttpUtil.httpsRequest(url, JLinkMethodType.POST.get(), JLinkHeaderUtil.map(jClient), new Gson().toJson(dto));
+        try {
+            DeviceTokenV3 response = new Gson().fromJson(res, DeviceTokenV3.class);
+            if (response.getCode() == JLinkResponseCode.SUCCESS.getCode()) {
+                return response.getData().get(0).getToken();
+            } else {
+                //RESTFul API request status code judgment
+                throw new JLinkDeviceInfoException(response.getCode(), JLinkResponseCode.get(response.getCode()).getMsg());
+            }
+        } catch (Exception e) {
+            throw new JLinkJsonException(JLinkResponseCode.JSON_ERROR.getCode(), res);
         }
     }
 }

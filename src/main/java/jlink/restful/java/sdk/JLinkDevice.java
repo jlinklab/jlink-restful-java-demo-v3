@@ -106,7 +106,7 @@ public class JLinkDevice {
     public String getDeviceToken() {
         String deviceToken = session.getDeviceToken();
         if (deviceToken == null) {
-            deviceToken = new DeviceTokenRequest().getDeviceToken(mJLinkClient, mDeviceSn);
+            deviceToken = new DeviceTokenRequest().getDeviceToken(mJLinkClient, mDeviceSn, "");
             session.setDeviceToken(deviceToken);
         }
         if (deviceToken == null || "".equals(deviceToken)) {

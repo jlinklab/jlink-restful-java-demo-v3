@@ -16,6 +16,7 @@ public enum JLinkDeviceRequestUrl {
      * AMS DeviceToken
      */
     DEVICE_TOKEN("v3/deviceToken"),
+    DEVICE_TOKEN_V3("v3/rtc/device/token"),
     /**
      * loginToken
      */
