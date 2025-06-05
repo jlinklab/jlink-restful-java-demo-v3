@@ -10,12 +10,12 @@ public class JLinkLiveStreamCase {
 
     public static void main(String[] args) {
         JLinkClient jClient = new JLinkClient(
-                "e0534f3240274897821a126be19b6d46",
-                "5b027c14d371332e88a9cbae30375ee7",
-                "fd664d5fa6974ec09023818f68b23212",
-                5);
+                "your uuid",
+                "your appKey",
+                "your appSecret",
+                6);
         JLinkUser jUser = new JLinkUser(jClient);
-        JLinkDevice jDevice = new JLinkDevice(jClient, "1234567890123456", "admin", "");
+        JLinkDevice jDevice = new JLinkDevice(jClient, "your sn","your device username","your device password");
 
 
         String liveStream = jDevice.deviceLivestream(
@@ -23,7 +23,7 @@ public class JLinkLiveStreamCase {
                 DeviceLiveStreamEnum.STREAM_EXTRA.get(),
                 DeviceLiveStreamEnum.MEDIATYPE_HLS.get(),
                 DeviceLiveStreamEnum.PROTOCOL_TS.get(),
-                jUser
+                "1728533325000"
         );
         JLinkLog.i(liveStream);
     }
