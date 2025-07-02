@@ -286,6 +286,10 @@ public enum JLinkDeviceConfigTypeEnum {
     }.getType()),
     IntellAlertAlarm("Alarm.IntellAlertAlarm", new TypeToken<DeviceConfig<IntellAlertAlarmConfig>>() {
     }.getType()),
+    StorageSDCheckStatus("Storage.SDCheckStatus", new TypeToken<DeviceConfig<Object>>() {
+    }.getType()),
+    DetectTrack("Detect.DetectTrack", new TypeToken<DeviceConfig<DetectTrackConfig>>() {
+    }.getType()),
 //    NetUseDigitalEncode("NetUse.DigitalEncode.[0]", new TypeToken<DeviceConfig<Object>>() {
 //    }.getType()),
     ;
