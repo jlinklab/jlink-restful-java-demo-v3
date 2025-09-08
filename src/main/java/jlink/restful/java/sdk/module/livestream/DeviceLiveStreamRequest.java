@@ -16,35 +16,19 @@ import jlink.restful.java.sdk.util.JLinkHttpUtil;
  */
 public class DeviceLiveStreamRequest {
 
-    public String deviceLivestream(String user, String pass, String channel, String stream, String mediaType, String protocol, String userToken, String devToken, JLinkClient jClient) {
-        return deviceLivestream(user, pass, channel, stream, mediaType, protocol, null, null, null, userToken, devToken, jClient);
-    }
-
-    public String deviceLivestream(String user, String pass, String channel, String stream, String mediaType, String protocol, String devToken, JLinkClient jClient) {
-        return deviceLivestream(user, pass, channel, stream, mediaType, protocol, null, null, null, null, devToken, jClient);
-    }
-
-    public String deviceLivestream(String user, String pass, String channel, String stream, String mediaType, String protocol, String expireTime, String videoCode, String audioCode, String devToken, JLinkClient jClient) {
-        return deviceLivestream(user, pass, channel, stream, mediaType, protocol, null, null, null, null, devToken, jClient);
-    }
-
-
     /**
      * @param devToken
      * @param user
      * @param pass
      * @param channel
      * @param stream
-     * @param mediaType
      * @param protocol
-     * @param userToken
      * @return {@link DeviceLiveStreamResponse.DataDTO}
      */
-    public String deviceLivestream(String user, String pass, String channel, String stream, String mediaType, String protocol, String expireTime, String videoCode, String audioCode, String userToken, String devToken, JLinkClient jClient) {
+    public String deviceLivestream(String user, String pass, String channel, String stream, String protocol, String expireTime, String videoCode, String audioCode, String devToken, JLinkClient jClient) {
         DeviceLiveStreamResponse response;
         String requestUrl = String.format("%s/%s/%s", JLinkDomain.OPENAPI_DOMAIN.get(), JLinkDeviceRequestUrl.DEVICE_LIVESTREAM.get(), devToken);
         LiveStreamParam param = new LiveStreamParam();
-        param.setMediaType(mediaType);
         param.setChannel(channel);
         param.setStream(stream);
         param.setProtocol(protocol);
@@ -73,17 +57,14 @@ public class DeviceLiveStreamRequest {
         }
     }
 
+
     /**
      * videoStreamParameters
      *
      * @author hjm
-     * @date 2022/04/22
+     * @date 2025/09/08
      */
     private static class LiveStreamParam {
-        /**
-         * mediaType
-         */
-        private String mediaType;
         /**
          * channel
          */
@@ -133,14 +114,6 @@ public class DeviceLiveStreamRequest {
 
         public void setVideoCode(String videoCode) {
             this.videoCode = videoCode;
-        }
-
-        public String getMediaType() {
-            return mediaType;
-        }
-
-        public void setMediaType(String mediaType) {
-            this.mediaType = mediaType;
         }
 
         public String getChannel() {

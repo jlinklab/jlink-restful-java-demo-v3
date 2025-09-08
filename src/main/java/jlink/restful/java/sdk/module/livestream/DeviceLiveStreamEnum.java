@@ -7,21 +7,21 @@ package jlink.restful.java.sdk.module.livestream;
  * @date 2022/04/21
  */
 public enum DeviceLiveStreamEnum {
-    MEDIATYPE_HLS("hls"),
-    MEDIATYPE_RTSP("rtsp"),
-    MEDIATYPE_RTSP_PRI("rtsp-pri"),
-    MEDIATYPE_FLV("flv"),
-    MEDIATYPE_RTMP("rtmp"),
-    MEDIATYPE_WEBRTC("webrtc"),
-    MEDIATYPE_WS("ws"),
     STREAM_MAIN("0"),
     STREAM_EXTRA("1"),
-    PROTOCOL_TS("ts"),
-    PROTOCOL_FMP4("fmp4"),
-    PROTOCOL_DAT("dat"),
     PROTOCOL_FLV("flv"),
-    PROTOCOL_ENHANCED_FLV("enhanced-flv"),
-    PROTOCOL_ENHANCED("enhanced"),
+    PROTOCOL_FLV_ENHANCED("flv-enhanced"),
+    PROTOCOL_HLS_TS("hls-ts"),
+    PROTOCOL_HLS_MP4("hls-fmp4"),
+    PROTOCOL_MP4("mp4"),
+    PROTOCOL_WS_PRI("ws-pri"),
+    PROTOCOL_WS_FLV("ws-flv"),
+    PROTOCOL_WS_FLV_ENHANCED("ws-flv-enhanced"),
+    PROTOCOL_RTSP_SDP("rtsp-sdp"),
+    PROTOCOL_RTSP_PRI("rtsp-pri"),
+    PROTOCOL_RTMP_FLV("rtmp-flv"),
+    PROTOCOL_RTMP_ENHANCED("rtmp-enhanced"),
+    PROTOCOL_WEBRTC("webrtc"),
     ;
 
     private String streamParam;
@@ -36,7 +36,7 @@ public enum DeviceLiveStreamEnum {
                 return value;
             }
         }
-        return MEDIATYPE_HLS;
+        return PROTOCOL_HLS_TS;
     }
 
     public String get() {

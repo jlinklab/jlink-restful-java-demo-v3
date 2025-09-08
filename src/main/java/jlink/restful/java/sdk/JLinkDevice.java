@@ -106,7 +106,7 @@ public class JLinkDevice {
     public String getDeviceToken() {
         String deviceToken = session.getDeviceToken();
         if (deviceToken == null) {
-            deviceToken = new DeviceTokenRequest().getDeviceToken(mJLinkClient, mDeviceSn, "");
+            deviceToken = new DeviceTokenRequest().getDeviceToken(mJLinkClient, mDeviceSn);
             session.setDeviceToken(deviceToken);
         }
         if (deviceToken == null || "".equals(deviceToken)) {
@@ -331,58 +331,32 @@ public class JLinkDevice {
      *
      * @return boolean
      */
-    public String deviceLivestream(String stream, String mediaType, String protocol) {
-        return deviceLivestream(0, stream, mediaType, protocol);
-    }
-
-    public String deviceLivestream(String stream, String mediaType, String protocol, JLinkUser jUser) {
-        return deviceLivestream(0, stream, mediaType, protocol, jUser);
+    public String deviceLivestream(String stream, String protocol) {
+        return deviceLivestream(0, stream, protocol);
     }
 
     /**
      * deviceLivestream
      *
-     * @param channel   channel
-     * @param stream    stream
-     * @param mediaType mediaType
-     * @param protocol  protocol
-     * @param jUser     user
+     * @param channel  channel
+     * @param stream   stream
+     * @param protocol protocol
      * @return {@link String}
      */
-    public String deviceLivestream(int channel, String stream, String mediaType, String protocol, JLinkUser jUser) {
-        return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, jUser.getUserToken(), getDeviceToken(), this.mJLinkClient);
+    public String deviceLivestream(int channel, String stream, String protocol) {
+        return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, protocol, null, null, null, getDeviceToken(), this.mJLinkClient);
     }
 
-    public String deviceLivestream(int channel, String stream, String mediaType, String protocol) {
-        return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, getDeviceToken(), this.mJLinkClient);
+    public String deviceLivestream(int channel, String stream, String protocol, String expireTime) {
+        return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, protocol, expireTime, null, null, getDeviceToken(), this.mJLinkClient);
     }
 
-    public String deviceLivestream(int channel, String stream, String mediaType, String protocol, String expireTime, JLinkUser jUser) {
-        return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, expireTime, null, null, jUser.getUserToken(), getDeviceToken(), this.mJLinkClient);
+    public String deviceLivestream(int channel, String stream, String protocol, String expireTime, String videoCode) {
+        return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, protocol, expireTime, videoCode, null, getDeviceToken(), this.mJLinkClient);
     }
 
-    public String deviceLivestream(int channel, String stream, String mediaType, String protocol, String expireTime, String videoCode, JLinkUser jUser) {
-        return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, expireTime, videoCode, null, jUser.getUserToken(), getDeviceToken(), this.mJLinkClient);
-    }
-
-    public String deviceLivestream(int channel, String stream, String mediaType, String protocol, String expireTime, String videoCode, String audioCode, JLinkUser jUser) {
-        return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, expireTime, videoCode, audioCode, jUser.getUserToken(), getDeviceToken(), this.mJLinkClient);
-    }
-
-    public String deviceLivestream(int channel, String stream, String mediaType, String protocol, String expireTime) {
-        return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, expireTime, null, null, getDeviceToken(), this.mJLinkClient);
-    }
-
-    public String deviceLivestream(int channel, String stream, String mediaType, String protocol, String expireTime, String videoCode) {
-        return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, expireTime, videoCode, null, getDeviceToken(), this.mJLinkClient);
-    }
-
-    public String deviceLivestream(int channel, String stream, String mediaType, String protocol, String expireTime, String videoCode, String audioCode) {
-        return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, mediaType, protocol, expireTime, videoCode, audioCode, getDeviceToken(), this.mJLinkClient);
-    }
-
-    public String deviceTalkbackUrl(String mediaType, String user, String pass, String channel) {
-        return new DeviceTalkbackUrlRequest().deviceTalkbackUrl(mediaType, user, pass, channel, getDeviceToken(), mJLinkClient);
+    public String deviceLivestream(int channel, String stream, String protocol, String expireTime, String videoCode, String audioCode) {
+        return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, protocol, expireTime, videoCode, audioCode, getDeviceToken(), this.mJLinkClient);
     }
 
 
@@ -490,15 +464,15 @@ public class JLinkDevice {
     /**
      * Device subscribes to alarm messages
      */
-    public boolean subscribe(String callbackUrl, JLinkUser jUser) {
-        return new DeviceSubscribeMessageRequest().subscribeMessage(callbackUrl, jUser.getUserToken(), getDeviceToken(), mJLinkClient);
+    public boolean subscribe(String callbackUrl) {
+        return new DeviceSubscribeMessageRequest().subscribeMessage(callbackUrl, getDeviceToken(), mJLinkClient);
     }
 
     /**
      * Device unsubscribes from alarm messages
      */
-    public boolean unSubscribe(JLinkUser jUser) {
-        return new DeviceUnSubscribeMessageRequest().unSubscribeMessage(jUser.getUserToken(), getDeviceToken(), mJLinkClient);
+    public boolean unSubscribe() {
+        return new DeviceUnSubscribeMessageRequest().unSubscribeMessage(getDeviceToken(), mJLinkClient);
     }
 
     public Object userManage(DeviceUserManage userManage) {

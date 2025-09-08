@@ -31,28 +31,27 @@ public class DeviceMediaUrlsRequest {
         List<MediaInfo> mediaInfos = new ArrayList<>();
         //HLS
         MediaInfo m1 = new MediaInfo();
-        m1.setMediaType(DeviceLiveStreamEnum.MEDIATYPE_HLS.get());
+        m1.setMediaType(DeviceLiveStreamEnum.PROTOCOL_HLS_TS.get());
         mediaInfos.add(m1);
         //RTSP
         MediaInfo m2 = new MediaInfo();
-        m2.setMediaType(DeviceLiveStreamEnum.MEDIATYPE_RTSP.get());
+        m2.setMediaType(DeviceLiveStreamEnum.PROTOCOL_RTSP_SDP.get());
         mediaInfos.add(m2);
         //RTMP
         MediaInfo m3 = new MediaInfo();
-        m3.setMediaType(DeviceLiveStreamEnum.MEDIATYPE_RTMP.get());
+        m3.setMediaType(DeviceLiveStreamEnum.PROTOCOL_RTMP_FLV.get());
         mediaInfos.add(m3);
         //FLV
         MediaInfo m4 = new MediaInfo();
-        m4.setMediaType(DeviceLiveStreamEnum.MEDIATYPE_FLV.get());
+        m4.setMediaType(DeviceLiveStreamEnum.PROTOCOL_FLV.get());
         mediaInfos.add(m4);
         //WEBRTC
         MediaInfo m5 = new MediaInfo();
-        m5.setMediaType(DeviceLiveStreamEnum.MEDIATYPE_WEBRTC.get());
+        m5.setMediaType(DeviceLiveStreamEnum.PROTOCOL_WEBRTC.get());
         mediaInfos.add(m5);
         //WS
         MediaInfo m6 = new MediaInfo();
-        m6.setMediaType(DeviceLiveStreamEnum.MEDIATYPE_WS.get());
-        m6.setType(DeviceLiveStreamEnum.PROTOCOL_DAT.get());
+        m6.setMediaType(DeviceLiveStreamEnum.PROTOCOL_WS_FLV.get());
         mediaInfos.add(m6);
         return urls(user, pass, 10, String.valueOf(System.currentTimeMillis() + 36000000), mediaInfos, devToken, jClient);
     }

@@ -2,7 +2,6 @@ package jlink.restful.java.demo;
 
 import jlink.restful.java.sdk.JLinkClient;
 import jlink.restful.java.sdk.JLinkDevice;
-import jlink.restful.java.sdk.JLinkUser;
 import jlink.restful.java.sdk.module.livestream.DeviceLiveStreamEnum;
 import jlink.restful.java.sdk.util.JLinkLog;
 
@@ -14,16 +13,14 @@ public class JLinkLiveStreamCase {
                 "your appKey",
                 "your appSecret",
                 6);
-        JLinkUser jUser = new JLinkUser(jClient);
-        JLinkDevice jDevice = new JLinkDevice(jClient, "your sn","your device username","your device password");
+        JLinkDevice jDevice = new JLinkDevice(jClient, "your sn", "your device username", "your device password");
 
 
         String liveStream = jDevice.deviceLivestream(
                 0,
                 DeviceLiveStreamEnum.STREAM_EXTRA.get(),
-                DeviceLiveStreamEnum.MEDIATYPE_HLS.get(),
-                DeviceLiveStreamEnum.PROTOCOL_TS.get(),
-                "1728533325000"
+                DeviceLiveStreamEnum.PROTOCOL_FLV.get(),
+                "1757421726000"
         );
         JLinkLog.i(liveStream);
     }

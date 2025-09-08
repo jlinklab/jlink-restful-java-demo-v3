@@ -1,4 +1,7 @@
 ## Update Log
+> 2025-09-08
+> Update Livestream Methods.
+
 > 2024-06-22
 > Add Boss Card interfaces.
 

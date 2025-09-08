@@ -26,17 +26,15 @@ public class DeviceSubscribeMessageRequest {
      * Subscribe to news
      *
      * @param callbackUrl  callback Url
-     * @param userToken    userToken
      * @param devToken     devToken
      * @param mJLinkClient
      * @return boolean
      */
-    public boolean subscribeMessage(String callbackUrl, String userToken, String devToken, JLinkClient mJLinkClient) {
+    public boolean subscribeMessage(String callbackUrl, String devToken, JLinkClient mJLinkClient) {
         DeviceMessageResponse response;
         String requestUrl = String.format("%s/%s/%s", JLinkDomain.OPENAPI_DOMAIN.get(), JLinkDeviceRequestUrl.SUBSCRIBE_MESSAGE.get(), devToken);
         Map<String, String> map = new HashMap<>();
         map.put("callbackUrl", callbackUrl);
-        map.put("userToken", userToken);
         //send https request
         String res = JLinkHttpUtil.httpsRequest(requestUrl, JLinkMethodType.POST.get(), JLinkHeaderUtil.map(mJLinkClient), new Gson().toJson(map));
         try {

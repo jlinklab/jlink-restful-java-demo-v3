@@ -25,16 +25,14 @@ public class DeviceUnSubscribeMessageRequest {
     /**
      * Unsubscribe from messages
      *
-     * @param userToken
      * @param devToken
      * @param mJLinkClient
      * @return boolean
      */
-    public boolean unSubscribeMessage(String userToken, String devToken, JLinkClient mJLinkClient) {
+    public boolean unSubscribeMessage(String devToken, JLinkClient mJLinkClient) {
         DeviceMessageResponse response;
         String requestUrl = String.format("%s/%s/%s", JLinkDomain.OPENAPI_DOMAIN.get(), JLinkDeviceRequestUrl.UNSUBSCRIBE_MESSAGE.get(), devToken);
         Map<String, String> map = new HashMap<>();
-        map.put("userToken", userToken);
         //send https request
         String res = JLinkHttpUtil.httpsRequest(requestUrl, JLinkMethodType.POST.get(), JLinkHeaderUtil.map(mJLinkClient), new Gson().toJson(map));
         try {

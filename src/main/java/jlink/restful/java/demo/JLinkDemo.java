@@ -3,7 +3,6 @@ package jlink.restful.java.demo;
 import com.google.gson.Gson;
 import jlink.restful.java.sdk.JLinkClient;
 import jlink.restful.java.sdk.JLinkDevice;
-import jlink.restful.java.sdk.JLinkUser;
 import jlink.restful.java.sdk.competent.JLinkDeviceAbilityEnum;
 import jlink.restful.java.sdk.competent.JLinkDeviceConfigTypeEnum;
 import jlink.restful.java.sdk.competent.JLinkDeviceResponseCode;
@@ -39,11 +38,6 @@ public class JLinkDemo {
                 "5b027c14d371332e88a9cbae30375ee7",
                 "fd664d5fa6974ec09023818f68b23212",
                 5);
-        /**
-         * account is the open platform appKey
-         * pass is the open platform appSecret
-         */
-        JLinkUser jUser = new JLinkUser(jClient,"account","pass");
 
         /**
          * sn devise serial number；
@@ -73,7 +67,7 @@ public class JLinkDemo {
          * Advanced features require the use of JLinkUser
          */
         try {
-            String liveStream = jDevice.deviceLivestream(DeviceLiveStreamEnum.STREAM_EXTRA.get(), DeviceLiveStreamEnum.MEDIATYPE_HLS.get(), DeviceLiveStreamEnum.PROTOCOL_TS.get());
+            String liveStream = jDevice.deviceLivestream(DeviceLiveStreamEnum.STREAM_EXTRA.get(), DeviceLiveStreamEnum.PROTOCOL_FLV.get());
             JLinkLog.i(liveStream);
         } catch (JLinkDeviceLiveStreamException e) {
             JLinkLog.e(e.toString());
@@ -206,9 +200,9 @@ public class JLinkDemo {
          */
         try {
             String callbackUrl = "https://subscribedemo.example.com";
-            boolean subscribe = jDevice.subscribe(callbackUrl, jUser);
+            boolean subscribe = jDevice.subscribe(callbackUrl);
             JLinkLog.i("SubScribe:" + subscribe);
-            boolean unSubscribe = jDevice.unSubscribe(jUser);
+            boolean unSubscribe = jDevice.unSubscribe();
             JLinkLog.i("unSubScribe:" + unSubscribe);
         } catch (JLinkSubscribeException e) {
             JLinkLog.e(e.toString());
