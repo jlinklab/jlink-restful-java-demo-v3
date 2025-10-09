@@ -106,7 +106,7 @@ public class JLinkDevice {
     public String getDeviceToken() {
         String deviceToken = session.getDeviceToken();
         if (deviceToken == null) {
-            deviceToken = new DeviceTokenRequest().getDeviceToken(mJLinkClient, mDeviceSn);
+            deviceToken = new DeviceTokenRequest().getDeviceToken(mJLinkClient, mDeviceSn, "");
             session.setDeviceToken(deviceToken);
         }
         if (deviceToken == null || "".equals(deviceToken)) {
@@ -385,18 +385,32 @@ public class JLinkDevice {
     /**
      * device Capture
      */
-    public String capture(int channel) {
+    public String capture(int channel, int timeout) {
         //todo 1、determineLogin
         if (!session.isLogin()) {
             login();
         }
         //todo 2、设备抓图
-        return new DeviceCaptureRequest().deviceCapture(channel, getDeviceToken(), mJLinkClient);
+        return new DeviceCaptureRequest().deviceCapture(channel, getDeviceToken(), mJLinkClient, timeout);
 
     }
 
     public String capture() {
         return capture(0);
+    }
+
+    public String capture(int channel) {
+        return capture(0, 60000);
+    }
+
+    /**
+     * capture with timeout, timeout>=20000ms && timeout<=60000ms
+     *
+     * @param timeout
+     * @return {@link String}
+     */
+    public String captureWithTimeout(int timeout) {
+        return capture(0, timeout);
     }
 
     /**
@@ -464,15 +478,23 @@ public class JLinkDevice {
     /**
      * Device subscribes to alarm messages
      */
+    public boolean subscribe(String callbackUrl, JLinkUser jUser) {
+        return subscribe(callbackUrl);
+    }
+
     public boolean subscribe(String callbackUrl) {
         return new DeviceSubscribeMessageRequest().subscribeMessage(callbackUrl, getDeviceToken(), mJLinkClient);
+    }
+
+    public boolean unSubscribe() {
+        return new DeviceUnSubscribeMessageRequest().unSubscribeMessage(getDeviceToken(), mJLinkClient);
     }
 
     /**
      * Device unsubscribes from alarm messages
      */
-    public boolean unSubscribe() {
-        return new DeviceUnSubscribeMessageRequest().unSubscribeMessage(getDeviceToken(), mJLinkClient);
+    public boolean unSubscribe(JLinkUser jUser) {
+        return unSubscribe();
     }
 
     public Object userManage(DeviceUserManage userManage) {
@@ -564,6 +586,10 @@ public class JLinkDevice {
 
     public String deviceLocalPic(String startTime, String endTime, String fileName, JLinkUser jUser) {
         return new DeviceLocalPicRequest().deviceLocalPic(mDeviceSn, startTime, endTime, fileName, getDeviceToken(), mJLinkClient);
+    }
+
+    public String deviceLocalPic(String fileName) {
+        return new DeviceLocalPicRequest().deviceLocalPic(mDeviceSn, "", "", fileName, getDeviceToken(), mJLinkClient);
     }
 
     /******************************basic Method*********************************/

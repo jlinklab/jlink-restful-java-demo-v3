@@ -29,11 +29,20 @@ public class JLinkHttpUtil {
      * @return {@link String}
      */
     public static String post(String requestUrl, Map<String, String> requestHeader, String body) {
-        return httpsRequest(requestUrl, JLinkMethodType.POST.get(), requestHeader, body);
+        return httpsRequest(requestUrl, JLinkMethodType.POST.get(), requestHeader, body, 60000);
+    }
+
+    public static String post(String requestUrl, Map<String, String> requestHeader, String body, int timeout) {
+        return httpsRequest(requestUrl, JLinkMethodType.POST.get(), requestHeader, body, timeout);
     }
 
     public static String httpsRequest(String requestUrl, String requestMethod, Map<String, String> requestHeader,
                                       String bodyParam) {
+        return httpsRequest(requestUrl, JLinkMethodType.POST.get(), requestHeader, bodyParam, 60000);
+    }
+
+    public static String httpsRequest(String requestUrl, String requestMethod, Map<String, String> requestHeader,
+                                      String bodyParam, int timeout) {
         if (!requestUrl.startsWith("https://")) {
             return httpRequest(requestUrl, requestMethod, requestHeader, bodyParam);
         }
@@ -64,6 +73,8 @@ public class JLinkHttpUtil {
             conn.setDoOutput(true);
             conn.setDoInput(true);
             conn.setUseCaches(false);
+            int clampedTimeout = Math.max(20000, Math.min(timeout, 60000));
+            conn.setConnectTimeout(clampedTimeout);
             conn.setRequestMethod(requestMethod);
             if ("POST".equalsIgnoreCase(requestMethod)) {
                 conn.addRequestProperty("Content-Type", "application/json; charset=UTF-8");

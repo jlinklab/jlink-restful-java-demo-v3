@@ -20,8 +20,11 @@ import jlink.restful.java.sdk.util.JLinkHttpUtil;
  */
 public class DeviceCaptureRequest {
 
-
     public String deviceCapture(int channel, String devToken, JLinkClient mJLinkClient) {
+        return deviceCapture(channel, devToken, mJLinkClient, 60000);
+    }
+
+    public String deviceCapture(int channel, String devToken, JLinkClient mJLinkClient, int timeout) {
         DeviceCaptureResponse response;
         String requestUrl = String.format("%s/%s/%s", JLinkDomain.OPENAPI_DOMAIN.get(), JLinkDeviceRequestUrl.DEVICE_CAPTURE.get(), devToken);
         CaptureParam param = new CaptureParam();
@@ -31,7 +34,7 @@ public class DeviceCaptureRequest {
         opsnapdto.setPicType(1);
         param.setOpsnapdto(opsnapdto);
         //send https request
-        String res = JLinkHttpUtil.post(requestUrl, JLinkHeaderUtil.map(mJLinkClient), new Gson().toJson(param));
+        String res = JLinkHttpUtil.post(requestUrl, JLinkHeaderUtil.map(mJLinkClient), new Gson().toJson(param), timeout);
         try {
             response = new Gson().fromJson(res, DeviceCaptureResponse.class);
             if (response.getCode() == JLinkResponseCode.SUCCESS.getCode()) {
