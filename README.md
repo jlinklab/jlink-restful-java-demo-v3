@@ -1,6 +1,7 @@
 ## Update Log
 > 2025-10-28
-> Add Feeder Methods And DoorLock Methods
+> Add Feeder Methods And DoorLock Methods 
+ 
 > 2025-10-09
 > Add JLinkDevice.captureWithTimeout(int timeout),20000<=timeout<=60000 ms
 
