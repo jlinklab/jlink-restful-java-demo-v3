@@ -16,6 +16,11 @@ import jlink.restful.java.sdk.module.config.DeviceConfig;
 import jlink.restful.java.sdk.module.devicetoken.DeviceTokenRequest;
 import jlink.restful.java.sdk.module.info.DeviceInfoRequest;
 import jlink.restful.java.sdk.module.info.DeviceInfoResponse;
+import jlink.restful.java.sdk.module.iot.doorlock.DoorLockRequest;
+import jlink.restful.java.sdk.module.iot.doorlock.DoorLockResponse;
+import jlink.restful.java.sdk.module.iot.feeder.DeviceFeederRequest;
+import jlink.restful.java.sdk.module.iot.feeder.DeviceFeederResponse;
+import jlink.restful.java.sdk.module.iot.feeder.DeviceFeederSwitchResponse;
 import jlink.restful.java.sdk.module.keepalive.DeviceKeepAliveEnum;
 import jlink.restful.java.sdk.module.keepalive.DeviceKeepaliveResponse;
 import jlink.restful.java.sdk.module.livestream.*;
@@ -478,23 +483,15 @@ public class JLinkDevice {
     /**
      * Device subscribes to alarm messages
      */
-    public boolean subscribe(String callbackUrl, JLinkUser jUser) {
-        return subscribe(callbackUrl);
-    }
-
     public boolean subscribe(String callbackUrl) {
         return new DeviceSubscribeMessageRequest().subscribeMessage(callbackUrl, getDeviceToken(), mJLinkClient);
-    }
-
-    public boolean unSubscribe() {
-        return new DeviceUnSubscribeMessageRequest().unSubscribeMessage(getDeviceToken(), mJLinkClient);
     }
 
     /**
      * Device unsubscribes from alarm messages
      */
-    public boolean unSubscribe(JLinkUser jUser) {
-        return unSubscribe();
+    public boolean unSubscribe() {
+        return new DeviceUnSubscribeMessageRequest().unSubscribeMessage(getDeviceToken(), mJLinkClient);
     }
 
     public Object userManage(DeviceUserManage userManage) {
@@ -780,5 +777,96 @@ public class JLinkDevice {
 
     }
 
+
+    /**
+     * @param feed
+     * @return {@link DeviceFeederResponse}
+     */
+    public DeviceFeederResponse feed(int feed) {
+        if (!session.isLogin()) {
+            login();
+        }
+        return new DeviceFeederRequest().feed(mDeviceSn, feed, getDeviceToken(), mJLinkClient);
+    }
+
+    /**
+     * Get FeedPlan
+     *
+     * @return {@link DeviceFeederResponse}
+     */
+    public DeviceFeederResponse getFeedPlan() {
+        if (!session.isLogin()) {
+            login();
+        }
+        return new DeviceFeederRequest().getFeedPlan(mDeviceSn, getDeviceToken(), mJLinkClient);
+    }
+
+    /**
+     * Set FeedPlan
+     *
+     * @param enable
+     * @param cron
+     * @param feed
+     * @return {@link DeviceFeederResponse}
+     */
+    public DeviceFeederResponse setFeedPlan(boolean enable, String cron, int feed) {
+        if (!session.isLogin()) {
+            login();
+        }
+        return new DeviceFeederRequest().setFeedPlan(mDeviceSn, enable, cron, feed, getDeviceToken(), mJLinkClient);
+    }
+
+    /**
+     * Get PetDetectionSwitchStatus
+     *
+     * @return {@link DeviceFeederSwitchResponse}
+     */
+    public DeviceFeederSwitchResponse getPetDetectionSwitchStatus() {
+        if (!session.isLogin()) {
+            login();
+        }
+        return new DeviceFeederRequest().getPetDetectionSwitchStatus(getDeviceToken(), mJLinkClient);
+    }
+
+    /**
+     * Set PetDetectionSwitchStatus
+     *
+     * @param switchStatus ON/OFF
+     * @return {@link DeviceFeederSwitchResponse}
+     */
+    public DeviceFeederSwitchResponse setPetDetectionSwitchStatus(String switchStatus) {
+        if (switchStatus.equals("ON") || switchStatus.equals("OFF")) {
+            if (!session.isLogin()) {
+                login();
+            }
+            return new DeviceFeederRequest().setPetDetectionSwitchStatus(switchStatus, getDeviceToken(), mJLinkClient);
+        } else {
+            throw new JLinkJsonException(JLinkResponseCode.PARAM_ERROR.getCode(), "Param Error");
+        }
+    }
+
+    /**
+     * GetDoorLockConfig
+     *
+     * @return {@link DoorLockResponse}
+     */
+    public DoorLockResponse getDoorLockConfig() {
+        if (!session.isLogin()) {
+            login();
+        }
+        return new DoorLockRequest().getDoorConfig(getDeviceToken(), mJLinkClient);
+
+    }
+
+    /**
+     * @param data
+     * @return {@link DoorLockResponse}
+     */
+    public DoorLockResponse transportTransmission(String data) {
+        if (!session.isLogin()) {
+            login();
+        }
+        return new DoorLockRequest().transportTransmission(data, getDeviceToken(), mJLinkClient);
+    }
 
 }

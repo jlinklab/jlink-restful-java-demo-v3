@@ -93,6 +93,8 @@ public enum JLinkDeviceConfigTypeEnum {
     //Get Camera parameters
     CAMERA("Camera.Param", new TypeToken<DeviceConfig<CameraConfig>>() {
     }.getType()),
+    CAMERAPARAM("Camera.Param", new TypeToken<DeviceConfig<CameraParamConfig>>() {
+    }.getType()),
     //Get Camera extend parameters
     CAMERAPARAMEX("Camera.ParamEx", new TypeToken<DeviceConfig<CameraParamExConfig>>() {
     }.getType()),
@@ -290,6 +292,10 @@ public enum JLinkDeviceConfigTypeEnum {
     }.getType()),
     DetectTrack("Detect.DetectTrack", new TypeToken<DeviceConfig<DetectTrackConfig>>() {
     }.getType()),
+    OneKeyMask("General.OneKeyMaskVideo.[0]", new TypeToken<DeviceConfig<Object>>() {
+    }.getType()),
+    ConsumerDoorLock("Consumer.DoorLock", new TypeToken<DeviceConfig<CustomDoorLockConfig>>() {
+    }.getType()),
 //    NetUseDigitalEncode("NetUse.DigitalEncode.[0]", new TypeToken<DeviceConfig<Object>>() {
 //    }.getType()),
     ;
@@ -298,7 +304,7 @@ public enum JLinkDeviceConfigTypeEnum {
      * name Of Configuration
      */
     private final String configName;
-    private final java.lang.reflect.Type type;
+    private final Type type;
 
     JLinkDeviceConfigTypeEnum(String configName, Type type) {
         this.configName = configName;

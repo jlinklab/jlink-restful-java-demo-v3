@@ -126,7 +126,14 @@ public enum JLinkDeviceRequestUrl {
     MEDIA_CONVERT("v3/rtc/device/mediaConvert"),
 
     START_RECORDING_VIDEO("v3/rtc/device/startRecordingVideo"),
-    STOP_RECORDING_VIDEO("v3/rtc/device/stopRecordingVideo");
+    STOP_RECORDING_VIDEO("v3/rtc/device/stopRecordingVideo"),
+
+    FEEDER("v3/rtc/device/feeder"),
+    IOT_PROP_SET("v3/rtc/device/iotPropSet"),
+    PET_DETECTION_SWITCH_STATUS("v3/rtc/device/petDetectionSwitchStatus"),
+    PET_DETECTION_SWITCH_SETTING("v3/rtc/device/petDetectionSwitchSetting"),
+    DOOR_LOCK_TRANSPARENT("v3/rtc/device/doorLockTransparent"),
+    DOOR_LOCK_REMOTE_UNLOCK("v3/rtc/device/doorLockRemoteUnlock");
 
 
     private String requestUrl;

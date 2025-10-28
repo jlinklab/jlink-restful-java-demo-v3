@@ -1,4 +1,9 @@
 ## Update Log
+> 2025-10-28
+> Add Feeder Methods And DoorLock Methods
+> 2025-10-09
+> Add JLinkDevice.captureWithTimeout(int timeout),20000<=timeout<=60000 ms
+
 > 2025-09-08
 > Update Livestream Methods.
 
