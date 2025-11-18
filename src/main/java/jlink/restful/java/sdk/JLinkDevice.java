@@ -127,8 +127,16 @@ public class JLinkDevice {
         return new DeviceGetStatusRequest().getDeviceStatus(getDeviceToken(), this.mJLinkClient);
     }
 
+    public DeviceStatusData deviceLocalStatus() {
+        return new DeviceGetStatusRequest().getDeviceStatus(JLinkDeviceStatusType.Local.get(), getDeviceToken(), this.mJLinkClient);
+    }
+
     public DeviceStatusData deviceStatus(List<String> deviceTokenList) {
         return new DeviceGetStatusRequest().getDeviceStatus(deviceTokenList, this.mJLinkClient);
+    }
+
+    public DeviceStatusData deviceLocalStatus(List<String> deviceTokenList, String region) {
+        return new DeviceGetStatusRequest().getDeviceStatus(JLinkDeviceStatusType.Local.get(), deviceTokenList, this.mJLinkClient);
     }
 
     /**

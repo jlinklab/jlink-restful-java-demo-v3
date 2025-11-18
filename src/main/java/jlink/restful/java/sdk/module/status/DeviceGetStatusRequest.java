@@ -2,10 +2,7 @@ package jlink.restful.java.sdk.module.status;
 
 import com.google.gson.Gson;
 import jlink.restful.java.sdk.JLinkClient;
-import jlink.restful.java.sdk.competent.JLinkDeviceRequestUrl;
-import jlink.restful.java.sdk.competent.JLinkDomain;
-import jlink.restful.java.sdk.competent.JLinkMethodType;
-import jlink.restful.java.sdk.competent.JLinkResponseCode;
+import jlink.restful.java.sdk.competent.*;
 import jlink.restful.java.sdk.exception.JLinkJsonException;
 import jlink.restful.java.sdk.util.JLinkHeaderUtil;
 import jlink.restful.java.sdk.util.JLinkHttpUtil;
@@ -26,13 +23,24 @@ public class DeviceGetStatusRequest {
     public DeviceStatusData getDeviceStatus(String token, JLinkClient jClient) {
         List<String> str = new ArrayList<>();
         str.add(token);
-        return getDeviceStatus(str, jClient);
+        return getDeviceStatus(JLinkDeviceStatusType.Global.get(), str, jClient);
+    }
+
+    public DeviceStatusData getDeviceStatus(String region, String token, JLinkClient jClient) {
+        List<String> str = new ArrayList<>();
+        str.add(token);
+        return getDeviceStatus(region, str, jClient);
     }
 
     public DeviceStatusData getDeviceStatus(List<String> tokenList, JLinkClient jClient) {
+        return getDeviceStatus(JLinkDeviceStatusType.Global.get(), tokenList, jClient);
+    }
+
+    public DeviceStatusData getDeviceStatus(String region, List<String> tokenList, JLinkClient jClient) {
         StatusDto dto = new StatusDto();
         dto.setDeviceTokenList(tokenList);
-        dto.setOtherStatus(true);
+        dto.setRegion(region);
+        dto.setOtherStatus(false);
         //Assemble the request address for obtaining the device ret requestDeviceStatusUrl
         String requestDeviceStatusUrl = String.format("%s/%s", JLinkDomain.OPENAPI_DOMAIN.get(), JLinkDeviceRequestUrl.DEVICE_STATUS.get());
         //send https request
@@ -57,6 +65,7 @@ public class DeviceGetStatusRequest {
          * The value is true to return rps, dss, p2p detailed ret; the default is false
          */
         private boolean otherStatus;
+        private String region;
 
         public List<String> getDeviceTokenList() {
             return deviceTokenList;
@@ -72,6 +81,14 @@ public class DeviceGetStatusRequest {
 
         public void setOtherStatus(boolean otherStatus) {
             this.otherStatus = otherStatus;
+        }
+
+        public String getRegion() {
+            return region;
+        }
+
+        public void setRegion(String region) {
+            this.region = region;
         }
     }
 }
