@@ -372,6 +372,9 @@ public class JLinkDevice {
         return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, protocol, expireTime, videoCode, audioCode, getDeviceToken(), this.mJLinkClient);
     }
 
+    public String deviceTalkbackUrl(String mediaType, String user, String pass, String channel) {
+        return new DeviceTalkbackUrlRequest().deviceTalkbackUrl(mediaType, user, pass, channel, getDeviceToken(), mJLinkClient);
+    }
 
     /**
      * Get Media Urls
