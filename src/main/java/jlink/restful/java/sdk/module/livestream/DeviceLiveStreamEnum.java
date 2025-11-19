@@ -19,7 +19,7 @@ public enum DeviceLiveStreamEnum {
     PROTOCOL_WS_FLV_ENHANCED("ws-flv-enhanced"),
     PROTOCOL_RTSP_SDP("rtsp-sdp"),
     PROTOCOL_RTSP_PRI("rtsp-pri"),
-    PROTOCOL_RTMP_FLV("rtmp-flv"),
+    PROTOCOL_RTMP_FLV("rtmp"),
     PROTOCOL_RTMP_ENHANCED("rtmp-enhanced"),
     PROTOCOL_WEBRTC("webrtc"),
     ;
