@@ -19,7 +19,7 @@ import java.util.List;
  * Device Get MediaUrls Request
  *
  * @author hjm
- * @date 2024/11/25
+ * @date 2025/11/19
  */
 public class DeviceMediaUrlsRequest {
 
@@ -157,8 +157,8 @@ public class DeviceMediaUrlsRequest {
     }
 
     public static class MediaInfo {
+        @SerializedName("protocol")
         private String mediaType;
-        private String type;
         private int channel;
         private int stream;
         @SerializedName("vcode")
@@ -172,14 +172,6 @@ public class DeviceMediaUrlsRequest {
 
         public void setMediaType(String mediaType) {
             this.mediaType = mediaType;
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public void setType(String type) {
-            this.type = type;
         }
 
         public int getChannel() {
