@@ -137,6 +137,30 @@ public class DeviceLoginRequest {
         }
     }
 
+
+    public boolean deviceLogout(String devToken, JLinkClient jClient) {
+        DeviceLogoutData dto = new DeviceLogoutData();
+        try {
+            String requestDeviceLogoutUrl = String.format("%s/%s/%s", JLinkDomain.OPENAPI_DOMAIN.get(), JLinkDeviceRequestUrl.DEVICE_LOGOUT.get(), devToken);
+            String res = JLinkHttpUtil.httpsRequest(requestDeviceLogoutUrl, "POST", JLinkHeaderUtil.map(jClient), new Gson().toJson(dto));
+            DeviceLoginResponse response = new Gson().fromJson(res, DeviceLoginResponse.class);
+            if (response.getCode() == JLinkResponseCode.SUCCESS.getCode()) {
+                if (response.getData().getRet() == JLinkDeviceResponseCode.SUCCESS.getCode()) {
+                    return true;
+                } else {
+                    //If the RESTFul API request is successful, the device returns the login failure, and the returned information is judged uniformly according to the ret value.
+                    throw new JLinkDeviceLoginException(response.getData().getRet(), response.getData().getRetMsg());
+                }
+            } else {
+                //RESTFul API request status code judgment
+                throw new JLinkDeviceLoginException(response.getCode(), JLinkResponseCode.get(response.getCode()).getMsg());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     /**
      * Verify jlink device login dto
      *

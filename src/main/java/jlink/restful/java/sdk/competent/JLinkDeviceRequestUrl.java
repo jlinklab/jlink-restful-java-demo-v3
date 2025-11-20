@@ -74,6 +74,7 @@ public enum JLinkDeviceRequestUrl {
      * login
      */
     DEVICE_LOGIN("v3/rtc/device/login"),
+    DEVICE_LOGOUT("v3/rtc/device/logout"),
     /**
      * opdev
      */
