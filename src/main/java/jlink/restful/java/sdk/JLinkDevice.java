@@ -376,7 +376,9 @@ public class JLinkDevice {
         return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, protocol, expireTime, videoCode, audioCode, getDeviceToken(), this.mJLinkClient);
     }
 
-
+    public String deviceTalkbackUrl(String mediaType, String user, String pass, String channel) {
+        return new DeviceTalkbackUrlRequest().deviceTalkbackUrl(mediaType, user, pass, channel, getDeviceToken(), mJLinkClient);
+    }
     /**
      * Get Media Urls
      *
@@ -454,7 +456,27 @@ public class JLinkDevice {
      * cloud storage alarm pic
      */
     public List<DeviceCloudStoragePicResponse.UrlDto> getPicUrl(List<String> alarmIds) {
-        return new DeviceCloudStorageAlarmRequest().getPicUrl(alarmIds, getDeviceToken(), mJLinkClient);
+        return getPicUrl(alarmIds, 0);
+    }
+
+    public List<DeviceCloudStoragePicResponse.UrlDto> getPicUrl(List<String> alarmIds, int channel) {
+        return getPicUrl(alarmIds, channel, "", "");
+    }
+
+    public List<DeviceCloudStoragePicResponse.UrlDto> getPicUrl(List<String> alarmIds, int channel, String startTime, String stopTime) {
+        return getPicUrl(alarmIds, channel, startTime, stopTime, 1, 100);
+    }
+
+    public List<DeviceCloudStoragePicResponse.UrlDto> getPicUrl(String startTime, String stopTime) {
+        return getPicUrl(null, 0, startTime, stopTime, 1, 100);
+    }
+
+    public List<DeviceCloudStoragePicResponse.UrlDto> getPicUrl(List<String> alarmIds, int channel, String startTime, String stopTime, int pageStart, int pageSize) {
+        return getPicUrl(alarmIds, channel, startTime, stopTime, pageStart, pageSize, null);
+    }
+
+    public List<DeviceCloudStoragePicResponse.UrlDto> getPicUrl(List<String> alarmIds, int channel, String startTime, String stopTime, int pageStart, int pageSize, String[] events) {
+        return new DeviceCloudStorageAlarmRequest().getPicUrl(alarmIds, channel, startTime, stopTime, pageStart, pageSize, events, getDeviceToken(), mJLinkClient);
     }
 
     /**
@@ -483,6 +505,14 @@ public class JLinkDevice {
      */
     public List<DeviceCloudStorageVideoListResponse.DataDTO.VideoDTO> getVideoList(String startTime, String stopTime) {
         return new DeviceCloudStorageAlarmRequest().getVideoList(startTime, stopTime, getDeviceToken(), mJLinkClient);
+    }
+
+    public List<DeviceCloudStorageVideoListResponse.DataDTO.VideoDTO> getVideoList(String startTime, String stopTime, int channel) {
+        return new DeviceCloudStorageAlarmRequest().getVideoList(startTime, stopTime, channel, 1, 10, null, getDeviceToken(), mJLinkClient);
+    }
+
+    public List<DeviceCloudStorageVideoListResponse.DataDTO.VideoDTO> getVideoList(String startTime, String stopTime, int channel, int pageNum, int pageSize, String[] events) {
+        return new DeviceCloudStorageAlarmRequest().getVideoList(startTime, stopTime, channel, pageNum, pageSize, events, getDeviceToken(), mJLinkClient);
     }
 
     /**

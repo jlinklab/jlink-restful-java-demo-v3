@@ -22,10 +22,18 @@ import java.util.List;
  */
 public class DeviceCloudStorageAlarmRequest {
 
-    public List<DeviceCloudStoragePicResponse.UrlDto> getPicUrl(List<String> alarmIds, String devToken, JLinkClient mJLinkClient) {
+    public List<DeviceCloudStoragePicResponse.UrlDto> getPicUrl(List<String> alarmIds, int channel, String startTime, String endTime, int pageStart, int pageSize, String[] events, String devToken, JLinkClient mJLinkClient) {
         DeviceCloudStoragePicResponse response;
         String requestUrl = String.format("%s/%s/%s", JLinkDomain.OPENAPI_DOMAIN.get(), JLinkDeviceRequestUrl.DEVICE_GETPICURL.get(), devToken);
-        String res = JLinkHttpUtil.post(requestUrl, JLinkHeaderUtil.map(mJLinkClient), new Gson().toJson(alarmIds));
+        GetPicUrlParam param = new GetPicUrlParam();
+        param.setAlarmIds(alarmIds);
+        param.setChannel(channel);
+        param.setStartTime(startTime);
+        param.setEndTime(endTime);
+        param.setPageStart(pageStart);
+        param.setPageSize(pageSize);
+        param.setEvents(events);
+        String res = JLinkHttpUtil.post(requestUrl, JLinkHeaderUtil.map(mJLinkClient), new Gson().toJson(param));
         try {
             response = new Gson().fromJson(res, DeviceCloudStoragePicResponse.class);
             if (response.getCode() == JLinkResponseCode.SUCCESS.getCode()) {
@@ -94,11 +102,19 @@ public class DeviceCloudStorageAlarmRequest {
 
 
     public List<DeviceCloudStorageVideoListResponse.DataDTO.VideoDTO> getVideoList(String startTime, String stopTime, String devToken, JLinkClient mJLinkClient) {
+        return getVideoList(startTime, stopTime, 0, 1, 10, null, devToken, mJLinkClient);
+    }
+
+    public List<DeviceCloudStorageVideoListResponse.DataDTO.VideoDTO> getVideoList(String startTime, String stopTime, int channel, int pageNum, int pageSize, String[] events, String devToken, JLinkClient mJLinkClient) {
         DeviceCloudStorageVideoListResponse response;
         String requestUrl = String.format("%s/%s/%s", JLinkDomain.OPENAPI_DOMAIN.get(), JLinkDeviceRequestUrl.DEVICE_GETVIDEOLIST.get(), devToken);
         GetVideoUrlParam param = new GetVideoUrlParam();
         param.setStartTime(startTime);
         param.setStopTime(stopTime);
+        param.setChannel(channel);
+        param.setPageNum(pageNum);
+        param.setPageSize(pageSize);
+        param.setEvents(events != null ? events : new String[0]);
         String res = JLinkHttpUtil.post(requestUrl, JLinkHeaderUtil.map(mJLinkClient), new Gson().toJson(param));
         try {
             response = new Gson().fromJson(res, DeviceCloudStorageVideoListResponse.class);
@@ -135,11 +151,83 @@ public class DeviceCloudStorageAlarmRequest {
         }
     }
 
+    private static class GetPicUrlParam {
+        @SerializedName("startTime")
+        private String startTime;
+        @SerializedName("endTime")
+        private String endTime;
+        private int channel;
+        private int pageStart;
+        private int pageSize;
+        private List<String> alarmIds;
+        private String[] events;
+
+        public String getStartTime() {
+            return startTime;
+        }
+
+        public void setStartTime(String startTime) {
+            this.startTime = startTime;
+        }
+
+        public String getEndTime() {
+            return endTime;
+        }
+
+        public void setEndTime(String endTime) {
+            this.endTime = endTime;
+        }
+
+        public int getChannel() {
+            return channel;
+        }
+
+        public void setChannel(int channel) {
+            this.channel = channel;
+        }
+
+        public int getPageStart() {
+            return pageStart;
+        }
+
+        public void setPageStart(int pageStart) {
+            this.pageStart = pageStart;
+        }
+
+        public int getPageSize() {
+            return pageSize;
+        }
+
+        public void setPageSize(int pageSize) {
+            this.pageSize = pageSize;
+        }
+
+        public List<String> getAlarmIds() {
+            return alarmIds;
+        }
+
+        public void setAlarmIds(List<String> alarmIds) {
+            this.alarmIds = alarmIds;
+        }
+
+        public String[] getEvents() {
+            return events;
+        }
+
+        public void setEvents(String[] events) {
+            this.events = events;
+        }
+    }
+
     private static class GetVideoUrlParam {
         @SerializedName("startTime")
         private String startTime;
         @SerializedName("stopTime")
         private String stopTime;
+        private int channel;
+        private int pageNum;
+        private int pageSize;
+        private String[] events;
 
         public String getStartTime() {
             return startTime;
@@ -155,6 +243,38 @@ public class DeviceCloudStorageAlarmRequest {
 
         public void setStopTime(String stopTime) {
             this.stopTime = stopTime;
+        }
+
+        public int getChannel() {
+            return channel;
+        }
+
+        public void setChannel(int channel) {
+            this.channel = channel;
+        }
+
+        public int getPageNum() {
+            return pageNum;
+        }
+
+        public void setPageNum(int pageNum) {
+            this.pageNum = pageNum;
+        }
+
+        public int getPageSize() {
+            return pageSize;
+        }
+
+        public void setPageSize(int pageSize) {
+            this.pageSize = pageSize;
+        }
+
+        public String[] getEvents() {
+            return events;
+        }
+
+        public void setEvents(String[] events) {
+            this.events = events;
         }
     }
 

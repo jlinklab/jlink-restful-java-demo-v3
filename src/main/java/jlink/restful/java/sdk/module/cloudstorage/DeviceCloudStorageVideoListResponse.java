@@ -47,6 +47,10 @@ public class DeviceCloudStorageVideoListResponse {
         private Integer ret;
         @SerializedName("VideoArray")
         private List<VideoDTO> videoDTOS;
+        public boolean isFinished;
+        private int total;
+        private int pageSize;
+        private int pageNum;
 
         public Integer getRet() {
             return ret;
@@ -64,6 +68,38 @@ public class DeviceCloudStorageVideoListResponse {
             this.videoDTOS = videoDTOS;
         }
 
+        public boolean isFinished() {
+            return isFinished;
+        }
+
+        public void setFinished(boolean finished) {
+            isFinished = finished;
+        }
+
+        public int getTotal() {
+            return total;
+        }
+
+        public void setTotal(int total) {
+            this.total = total;
+        }
+
+        public int getPageSize() {
+            return pageSize;
+        }
+
+        public void setPageSize(int pageSize) {
+            this.pageSize = pageSize;
+        }
+
+        public int getPageNum() {
+            return pageNum;
+        }
+
+        public void setPageNum(int pageNum) {
+            this.pageNum = pageNum;
+        }
+
         public static class VideoDTO {
             @SerializedName("StartTime")
             private String startTime;
@@ -77,6 +113,8 @@ public class DeviceCloudStorageVideoListResponse {
             private String storageBucket;
             @SerializedName("VideoSize")
             private Integer videoSize;
+            @SerializedName("thumbURL")
+            private String thumbURL;
 
             public String getStartTime() {
                 return startTime;
@@ -124,6 +162,14 @@ public class DeviceCloudStorageVideoListResponse {
 
             public void setVideoSize(Integer videoSize) {
                 this.videoSize = videoSize;
+            }
+
+            public String getThumbURL() {
+                return thumbURL;
+            }
+
+            public void setThumbURL(String thumbURL) {
+                this.thumbURL = thumbURL;
             }
         }
     }
