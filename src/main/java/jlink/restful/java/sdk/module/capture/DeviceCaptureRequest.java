@@ -53,6 +53,90 @@ public class DeviceCaptureRequest {
         }
     }
 
+    public DeviceCaptureTimeConfigResponse setCaptureTimeConfig(boolean enable, int interval, String timeFrame, String week, String devToken, JLinkClient mJLinkClient) {
+        DeviceCaptureTimeConfigResponse response;
+        String requestUrl = String.format("%s/%s/%s", JLinkDomain.OPENAPI_DOMAIN.get(), JLinkDeviceRequestUrl.DEVICE_SET_CAPTURE_TIME_CONFIG.get(), devToken);
+        TimeConfig param = new TimeConfig();
+        param.setEnable(enable);
+        param.setInterval(interval);
+        param.setTimeFrame(timeFrame);
+        param.setWeek(week);
+        //send https request
+        String res = JLinkHttpUtil.post(requestUrl, JLinkHeaderUtil.map(mJLinkClient), new Gson().toJson(param));
+        try {
+            response = new Gson().fromJson(res, DeviceCaptureTimeConfigResponse.class);
+            if (response.getCode() == JLinkResponseCode.SUCCESS.getCode()) {
+                return response;
+            } else {
+                //RESTFul API request status code judgment
+                throw new JLinkDeviceCaptureException(response.getCode(), JLinkResponseCode.get(response.getCode()).getMsg());
+            }
+        } catch (Exception e) {
+            throw new JLinkJsonException(JLinkResponseCode.JSON_ERROR.getCode(), res);
+        }
+    }
+
+    public DeviceCaptureTimeConfigResponse getCaptureTimeConfig(String devToken, JLinkClient mJLinkClient) {
+        DeviceCaptureTimeConfigResponse response;
+        String requestUrl = String.format("%s/%s/%s", JLinkDomain.OPENAPI_DOMAIN.get(), JLinkDeviceRequestUrl.DEVICE_GET_CAPTURE_TIME_CONFIG.get(), devToken);
+        //send https request
+        String res = JLinkHttpUtil.post(requestUrl, JLinkHeaderUtil.map(mJLinkClient), "");
+        try {
+            response = new Gson().fromJson(res, DeviceCaptureTimeConfigResponse.class);
+            if (response.getCode() == JLinkResponseCode.SUCCESS.getCode()) {
+                return response;
+            } else {
+                //RESTFul API request status code judgment
+                throw new JLinkDeviceCaptureException(response.getCode(), JLinkResponseCode.get(response.getCode()).getMsg());
+            }
+        } catch (Exception e) {
+            throw new JLinkJsonException(JLinkResponseCode.JSON_ERROR.getCode(), res);
+        }
+    }
+
+    private static class TimeConfig {
+        @SerializedName("Enable")
+        private Boolean enable;
+        @SerializedName("Interval")
+        private Integer interval;
+        @SerializedName("Week")
+        private String week;
+        @SerializedName("TimeFrame")
+        private String timeFrame;
+
+        public Boolean getEnable() {
+            return enable;
+        }
+
+        public void setEnable(Boolean enable) {
+            this.enable = enable;
+        }
+
+        public Integer getInterval() {
+            return interval;
+        }
+
+        public void setInterval(Integer interval) {
+            this.interval = interval;
+        }
+
+        public String getWeek() {
+            return week;
+        }
+
+        public void setWeek(String week) {
+            this.week = week;
+        }
+
+        public String getTimeFrame() {
+            return timeFrame;
+        }
+
+        public void setTimeFrame(String timeFrame) {
+            this.timeFrame = timeFrame;
+        }
+    }
+
     /**
      * Capture Parameters
      *

@@ -30,6 +30,8 @@ public enum JLinkDeviceRequestUrl {
      * capture
      */
     DEVICE_CAPTURE("v3/rtc/device/capture"),
+    DEVICE_GET_CAPTURE_TIME_CONFIG("v3/rtc/device/getCaptureTimeConfig"),
+    DEVICE_SET_CAPTURE_TIME_CONFIG("v3/rtc/device/setCaptureTimeConfig"),
     /*
      * get pic url
      */
@@ -134,6 +136,7 @@ public enum JLinkDeviceRequestUrl {
     PET_DETECTION_SWITCH_STATUS("v3/rtc/device/petDetectionSwitchStatus"),
     PET_DETECTION_SWITCH_SETTING("v3/rtc/device/petDetectionSwitchSetting"),
     DOOR_LOCK_TRANSPARENT("v3/rtc/device/doorLockTransparent"),
+    CHECK_FIRMWARE_VERSION("v3/rtc/device/checkFirmwareVersion"),
     DOOR_LOCK_REMOTE_UNLOCK("v3/rtc/device/doorLockRemoteUnlock");
 
 

@@ -9,6 +9,7 @@ import jlink.restful.java.sdk.module.ability.DeviceAbilityResponse;
 import jlink.restful.java.sdk.module.alarm.DeviceAlarmListRequest;
 import jlink.restful.java.sdk.module.alarm.DeviceAlarmListResponse;
 import jlink.restful.java.sdk.module.capture.DeviceCaptureRequest;
+import jlink.restful.java.sdk.module.capture.DeviceCaptureTimeConfigResponse;
 import jlink.restful.java.sdk.module.cloudstorage.*;
 import jlink.restful.java.sdk.module.config.CustomerFlowConfig;
 import jlink.restful.java.sdk.module.config.DetectHumanDetectionConfig;
@@ -379,6 +380,7 @@ public class JLinkDevice {
     public String deviceTalkbackUrl(String mediaType, String user, String pass, String channel) {
         return new DeviceTalkbackUrlRequest().deviceTalkbackUrl(mediaType, user, pass, channel, getDeviceToken(), mJLinkClient);
     }
+
     /**
      * Get Media Urls
      *
@@ -409,7 +411,7 @@ public class JLinkDevice {
         if (!session.isLogin()) {
             login();
         }
-        //todo 2、设备抓图
+        //todo 2、capture
         return new DeviceCaptureRequest().deviceCapture(channel, getDeviceToken(), mJLinkClient, timeout);
 
     }
@@ -430,6 +432,28 @@ public class JLinkDevice {
      */
     public String captureWithTimeout(int timeout) {
         return capture(0, timeout);
+    }
+
+    public DeviceCaptureTimeConfigResponse setCaptureTimeConfig(boolean enable, int interval, String timeFrame) {
+        return setCaptureTimeConfig(enable, interval, timeFrame, null);
+    }
+
+    public DeviceCaptureTimeConfigResponse setCaptureTimeConfig(boolean enable, int interval, String timeFrame, String week) {
+        //todo 1、determineLogin
+        if (!session.isLogin()) {
+            login();
+        }
+        //todo 2、setCaptureTimeConfig
+        return new DeviceCaptureRequest().setCaptureTimeConfig(enable, interval, timeFrame, week, getDeviceToken(), mJLinkClient);
+    }
+
+    public DeviceCaptureTimeConfigResponse getCaptureTimeConfig() {
+        //todo 1、determineLogin
+        if (!session.isLogin()) {
+            login();
+        }
+        //todo 2、getCaptureTimeConfig
+        return new DeviceCaptureRequest().getCaptureTimeConfig(getDeviceToken(), mJLinkClient);
     }
 
     /**
