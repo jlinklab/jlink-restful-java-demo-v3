@@ -27,18 +27,20 @@ public class DeviceLoginRequest {
      * @param devToken
      * @return {@link DeviceLoginData}
      */
-    public DeviceLoginData deviceLoginByUser(String devUsername, String devPassword, String devToken, JLinkClient jLinkClient) {
+    public DeviceLoginData deviceLoginByUser(String devUsername, String devPassword, int keepaliveTime, String devToken, JLinkClient jLinkClient) {
         DeviceLoginDto dto = new DeviceLoginDto();
         dto.setDevUsername(devUsername);
         dto.setDevPassword(devPassword);
+        dto.setKeepAlive(keepaliveTime);
         return deviceLogin(dto, devToken, jLinkClient);
     }
 
-    public DeviceLoginData deviceLoginByUser(String devUsername, String devPassword, String devToken, Boolean share, JLinkClient jLinkClient) {
+    public DeviceLoginData deviceLoginByUser(String devUsername, String devPassword, Boolean share, int keepaliveTime, String devToken, JLinkClient jLinkClient) {
         DeviceLoginDto dto = new DeviceLoginDto();
         dto.setDevUsername(devUsername);
         dto.setDevPassword(devPassword);
         dto.setShare(share);
+        dto.setKeepAlive(keepaliveTime);
         return deviceLogin(dto, devToken, jLinkClient);
     }
 
@@ -86,6 +88,7 @@ public class DeviceLoginRequest {
             bo.setLoginToken(dto.getLoginToken());
             bo.setShare(dto.getShare());
             bo.setEncryptType(dto.getEncryptType());
+            bo.setKeepaliveTime(dto.getKeepAlive());
             //send https request
             String res = JLinkHttpUtil.httpsRequest(requestDeviceLoginUrl, JLinkMethodType.POST.get(), JLinkHeaderUtil.map(jClient), new Gson().toJson(bo));
             JLinkLog.d("Login res:\r\n" + res);
@@ -202,6 +205,8 @@ public class DeviceLoginRequest {
 
         private String encryptType = "MD5";
 
+        private int keepAlive = 300;
+
         public String getDevUsername() {
             return devUsername;
         }
@@ -241,6 +246,14 @@ public class DeviceLoginRequest {
         public void setEncryptType(String encryptType) {
             this.encryptType = encryptType;
         }
+
+        public int getKeepAlive() {
+            return keepAlive;
+        }
+
+        public void setKeepAlive(int keepAlive) {
+            this.keepAlive = keepAlive;
+        }
     }
 
     private static class LoginBo {
@@ -266,6 +279,9 @@ public class DeviceLoginRequest {
 
         @SerializedName("share")
         private Boolean share = false;
+
+        @SerializedName("KeepaliveTime")
+        private Integer keepaliveTime = 300;
 
         private String sn;
 
@@ -339,6 +355,14 @@ public class DeviceLoginRequest {
 
         public void setShare(Boolean share) {
             this.share = share;
+        }
+
+        public Integer getKeepaliveTime() {
+            return keepaliveTime;
+        }
+
+        public void setKeepaliveTime(Integer keepaliveTime) {
+            this.keepaliveTime = keepaliveTime;
         }
     }
 }

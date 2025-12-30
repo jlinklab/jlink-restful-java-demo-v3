@@ -80,6 +80,7 @@ public class JLinkDevice {
      * session
      */
     private final DeviceSession session = new DeviceSession();
+    private static int keepaliveTime = 300;
 
     /**
      * @param sn      devise serial number
@@ -179,12 +180,11 @@ public class JLinkDevice {
      * @return {@link DeviceLoginData}
      */
     public DeviceLoginData login() {
-        DeviceLoginData loginData = deviceLoginByUser(mDeviceUser, mDevicePass, false);
-        if (loginData.getRet() == 100) {
-            session.setLogin(true);
-            //todo Login successful keep heartbeat
-        }
-        return loginData;
+        return login(false, keepaliveTime);
+    }
+
+    public DeviceLoginData login(int keepaliveTime) {
+        return login(false, keepaliveTime);
     }
 
     public DeviceLoginData loginByMD5Pass() {
@@ -201,7 +201,11 @@ public class JLinkDevice {
      * @return {@link DeviceLoginData}
      */
     public DeviceLoginData login(Boolean share) {
-        DeviceLoginData loginData = deviceLoginByUser(mDeviceUser, mDevicePass, share);
+        return login(share, keepaliveTime);
+    }
+
+    public DeviceLoginData login(Boolean share, int keepaliveTime) {
+        DeviceLoginData loginData = deviceLoginByUser(mDeviceUser, mDevicePass, share, keepaliveTime);
         if (loginData.getRet() == 100) {
             session.setLogin(true);
             //todo Login successful keep heartbeat
@@ -689,11 +693,19 @@ public class JLinkDevice {
      * @return
      */
     public DeviceLoginData deviceLoginByUser(String userName, String passWord) {
-        return new DeviceLoginRequest().deviceLoginByUser(userName, passWord, getDeviceToken(), this.mJLinkClient);
+        return new DeviceLoginRequest().deviceLoginByUser(userName, passWord, keepaliveTime, getDeviceToken(), this.mJLinkClient);
+    }
+
+    public DeviceLoginData deviceLoginByUser(String userName, String passWord, int keepaliveTime) {
+        return new DeviceLoginRequest().deviceLoginByUser(userName, passWord, keepaliveTime, getDeviceToken(), this.mJLinkClient);
     }
 
     public DeviceLoginData deviceLoginByUser(String userName, String passWord, Boolean share) {
-        return new DeviceLoginRequest().deviceLoginByUser(userName, passWord, getDeviceToken(), share, this.mJLinkClient);
+        return deviceLoginByUser(userName, passWord, share, keepaliveTime);
+    }
+
+    public DeviceLoginData deviceLoginByUser(String userName, String passWord, Boolean share, int keepaliveTime) {
+        return new DeviceLoginRequest().deviceLoginByUser(userName, passWord, share, keepaliveTime, getDeviceToken(), this.mJLinkClient);
     }
 
     public DeviceLoginData deviceLoginNoneEncrypted(String md5UserName, String md5PassWord) {
