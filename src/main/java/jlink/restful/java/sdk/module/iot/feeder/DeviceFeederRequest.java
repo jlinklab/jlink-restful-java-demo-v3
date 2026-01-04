@@ -86,7 +86,7 @@ public class DeviceFeederRequest {
         }
     }
 
-    public DeviceFeederResponse setFeedPlan(String sn, boolean enable, String cron, int feed, String devToken, JLinkClient mJLinkClient) {
+    public DeviceFeederResponse setFeedPlan(String method, String sn, boolean enable, String cron, int feed, String devToken, JLinkClient mJLinkClient) {
         DeviceFeederResponse response;
         String requestDeviceFeederUrl = String.format("%s/%s/%s", JLinkDomain.OPENAPI_DOMAIN.get(), JLinkDeviceRequestUrl.IOT_PROP_SET.get(), devToken);
         SetFeedPlanDTO dto = new SetFeedPlanDTO();
@@ -101,6 +101,7 @@ public class DeviceFeederRequest {
         feedPlanDTO.setEnable(enable);
         feedPlanDTOS.add(feedPlanDTO);
         props.setFeedPlan(feedPlanDTOS);
+        props.setMethod(method);
         dto.setProps(props);
         //send https request
         String res = JLinkHttpUtil.httpsRequest(requestDeviceFeederUrl, JLinkMethodType.POST.get(), JLinkHeaderUtil.map(mJLinkClient), new Gson().toJson(dto));

@@ -15,6 +15,8 @@ public class SetFeedPlanDTO {
 
     public static class PropsDTO {
         private List<FeedPlanDTO> feedPlan;
+        // method:Add, Modify, Delete,Clear (Default:Add)
+        private String method = "Add";
 
         public static class FeedPlanDTO {
             private Boolean enable;
@@ -64,6 +66,14 @@ public class SetFeedPlanDTO {
 
         public void setFeedPlan(List<FeedPlanDTO> feedPlan) {
             this.feedPlan = feedPlan;
+        }
+
+        public String getMethod() {
+            return method;
+        }
+
+        public void setMethod(String method) {
+            this.method = method;
         }
     }
 

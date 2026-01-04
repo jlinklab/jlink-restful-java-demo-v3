@@ -888,10 +888,14 @@ public class JLinkDevice {
      * @return {@link DeviceFeederResponse}
      */
     public DeviceFeederResponse setFeedPlan(boolean enable, String cron, int feed) {
+        return setFeedPlan("Add", enable, cron, feed);
+    }
+
+    public DeviceFeederResponse setFeedPlan(String method, boolean enable, String cron, int feed) {
         if (!session.isLogin()) {
             login();
         }
-        return new DeviceFeederRequest().setFeedPlan(mDeviceSn, enable, cron, feed, getDeviceToken(), mJLinkClient);
+        return new DeviceFeederRequest().setFeedPlan(method, mDeviceSn, enable, cron, feed, getDeviceToken(), mJLinkClient);
     }
 
     /**
