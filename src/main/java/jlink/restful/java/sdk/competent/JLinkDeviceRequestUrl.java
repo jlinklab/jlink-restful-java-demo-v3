@@ -137,7 +137,8 @@ public enum JLinkDeviceRequestUrl {
     PET_DETECTION_SWITCH_SETTING("v3/rtc/device/petDetectionSwitchSetting"),
     DOOR_LOCK_TRANSPARENT("v3/rtc/device/doorLockTransparent"),
     CHECK_FIRMWARE_VERSION("v3/rtc/device/checkFirmwareVersion"),
-    DOOR_LOCK_REMOTE_UNLOCK("v3/rtc/device/doorLockRemoteUnlock");
+    DOOR_LOCK_REMOTE_UNLOCK("v3/rtc/device/doorLockRemoteUnlock"),
+    CELLULAR_QUALITY("v3/rtc/device/cellularQuality");
 
 
     private String requestUrl;

@@ -46,4 +46,28 @@ public class DeviceInfoRequest {
             throw new JLinkJsonException(JLinkResponseCode.JSON_ERROR.getCode(), res);
         }
     }
+
+
+    public DeviceInfoResponse.DevInfo cellularQuality(String devToken, JLinkClient mJLinkClient) {
+        DeviceInfoResponse response;
+        String requestDeviceInfoUrl = String.format("%s/%s/%s", JLinkDomain.OPENAPI_DOMAIN.get(), JLinkDeviceRequestUrl.CELLULAR_QUALITY.get(), devToken);
+        //send https request
+        String res = JLinkHttpUtil.httpsRequest(requestDeviceInfoUrl, JLinkMethodType.POST.get(), JLinkHeaderUtil.map(mJLinkClient), new Gson().toJson(""));
+        try {
+            response = new Gson().fromJson(res, DeviceInfoResponse.class);
+            if (response.getCode() == JLinkResponseCode.SUCCESS.getCode()) {
+                if (response.getData().getRet() == JLinkDeviceResponseCode.SUCCESS.getCode()) {
+                    return response.getData();
+                } else {
+                    //If the RESTFul API request is successful, the device returns the login failure, and the returned information is judged uniformly according to the ret value.
+                    throw new JLinkDeviceInfoException(response.getData().getRet(), JLinkDeviceResponseCode.get(response.getData().getRet()).getMsg());
+                }
+            } else {
+                //RESTFul API request status code judgment
+                throw new JLinkDeviceInfoException(response.getCode(), JLinkResponseCode.get(response.getCode()).getMsg());
+            }
+        } catch (Exception e) {
+            throw new JLinkJsonException(JLinkResponseCode.JSON_ERROR.getCode(), res);
+        }
+    }
 }

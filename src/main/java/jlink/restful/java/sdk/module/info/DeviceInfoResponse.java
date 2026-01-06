@@ -39,6 +39,9 @@ public class DeviceInfoResponse {
         @SerializedName("4GInfo")
         private G4Info g4Info;
 
+        @SerializedName("SignalLevel")
+        private Integer signalLevel;
+
         public List<OPStorageInfoResponse.StorageInfoDTO> getStorageInfo() {
             return storageInfo;
         }
@@ -103,6 +106,14 @@ public class DeviceInfoResponse {
             this.g4Info = g4Info;
         }
 
+        public Integer getSignalLevel() {
+            return signalLevel;
+        }
+
+        public void setSignalLevel(Integer signalLevel) {
+            this.signalLevel = signalLevel;
+        }
+
         public static class SystemInfoDTO {
             @SerializedName("AlarmInChannel")
             private Integer alarmInChannel;
@@ -144,6 +155,31 @@ public class DeviceInfoResponse {
             private Integer videoInChannel;
             @SerializedName("VideoOutChannel")
             private Integer videoOutChannel;
+            @SerializedName("Modules")
+            private List<Module> modules;
+
+            public static class Module {
+                @SerializedName("CurVersion")
+                private String curVersion;
+                @SerializedName("Partition")
+                private String partition;
+
+                public String getCurVersion() {
+                    return curVersion;
+                }
+
+                public void setCurVersion(String curVersion) {
+                    this.curVersion = curVersion;
+                }
+
+                public String getPartition() {
+                    return partition;
+                }
+
+                public void setPartition(String partition) {
+                    this.partition = partition;
+                }
+            }
 
             public Integer getAlarmInChannel() {
                 return alarmInChannel;
@@ -304,11 +340,21 @@ public class DeviceInfoResponse {
             public void setVideoOutChannel(Integer videoOutChannel) {
                 this.videoOutChannel = videoOutChannel;
             }
+
+            public List<Module> getModules() {
+                return modules;
+            }
+
+            public void setModules(List<Module> modules) {
+                this.modules = modules;
+            }
         }
 
         public static class SystemInfoExDTO {
             @SerializedName("McuVersion")
             private String mcuVersion;
+            @SerializedName("ExModules")
+            private List<ExModulesDTO> exModules;
 
             public String getMcuVersion() {
                 return mcuVersion;
@@ -316,6 +362,90 @@ public class DeviceInfoResponse {
 
             public void setMcuVersion(String mcuVersion) {
                 this.mcuVersion = mcuVersion;
+            }
+
+            public List<ExModulesDTO> getExModules() {
+                return exModules;
+            }
+
+            public void setExModules(List<ExModulesDTO> exModules) {
+                this.exModules = exModules;
+            }
+
+            public static class ExModulesDTO {
+                @SerializedName("CurVersion")
+                private String curVersion;
+                @SerializedName("Modules")
+                private List<ModulesDTO> modules;
+                @SerializedName("Name")
+                private String name;
+                @SerializedName("UpDevID")
+                private String upDevID;
+
+                public static class ModulesDTO {
+                    @SerializedName("CurVersion")
+                    private String curVersion;
+                    @SerializedName("ModuleType")
+                    private String moduleType;
+                    @SerializedName("Partition")
+                    private String partition;
+
+                    public String getCurVersion() {
+                        return curVersion;
+                    }
+
+                    public void setCurVersion(String curVersion) {
+                        this.curVersion = curVersion;
+                    }
+
+                    public String getModuleType() {
+                        return moduleType;
+                    }
+
+                    public void setModuleType(String moduleType) {
+                        this.moduleType = moduleType;
+                    }
+
+                    public String getPartition() {
+                        return partition;
+                    }
+
+                    public void setPartition(String partition) {
+                        this.partition = partition;
+                    }
+                }
+
+                public String getCurVersion() {
+                    return curVersion;
+                }
+
+                public void setCurVersion(String curVersion) {
+                    this.curVersion = curVersion;
+                }
+
+                public List<ModulesDTO> getModules() {
+                    return modules;
+                }
+
+                public void setModules(List<ModulesDTO> modules) {
+                    this.modules = modules;
+                }
+
+                public String getName() {
+                    return name;
+                }
+
+                public void setName(String name) {
+                    this.name = name;
+                }
+
+                public String getUpDevID() {
+                    return upDevID;
+                }
+
+                public void setUpDevID(String upDevID) {
+                    this.upDevID = upDevID;
+                }
             }
         }
 

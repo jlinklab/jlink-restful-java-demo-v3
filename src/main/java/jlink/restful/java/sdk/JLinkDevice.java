@@ -174,6 +174,10 @@ public class JLinkDevice {
         return new DeviceInfoRequest().deviceInfo(infoEnum, getDeviceToken(), mJLinkClient);
     }
 
+    public DeviceInfoResponse.DevInfo cellularQuality() {
+        return new DeviceInfoRequest().cellularQuality(getDeviceToken(), mJLinkClient);
+    }
+
     /**
      * automatic Login device
      *
