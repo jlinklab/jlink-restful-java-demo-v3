@@ -125,6 +125,7 @@ public enum JLinkDeviceRequestUrl {
     PLAYBACK_TIMELINELIST("v3/rtc/device/playbackTimelineList"),
     CARD_PLAYBACK_CALENDAR("v3/rtc/device/cardPlaybackCalendar"),
     TALKBACK_URL("v3/rtc/device/talkbackUrl"),
+    VIDEO_CALL_URL("v3/rtc/device/getVideoCallUrl"),
 
     MEDIA_CONVERT("v3/rtc/device/mediaConvert"),
 

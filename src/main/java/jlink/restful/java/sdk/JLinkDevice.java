@@ -385,8 +385,46 @@ public class JLinkDevice {
         return new DeviceLiveStreamRequest().deviceLivestream(mDeviceUser, mDevicePass, String.valueOf(channel), stream, protocol, expireTime, videoCode, audioCode, getDeviceToken(), this.mJLinkClient);
     }
 
-    public String deviceTalkbackUrl(String mediaType, String user, String pass, String channel) {
-        return new DeviceTalkbackUrlRequest().deviceTalkbackUrl(mediaType, user, pass, channel, getDeviceToken(), mJLinkClient);
+    public String deviceTalkbackUrl(String protocol, String user, String pass, String channel) {
+        return new DeviceTalkbackUrlRequest().deviceTalkbackUrl(protocol, user, pass, channel, getDeviceToken(), mJLinkClient);
+    }
+
+    public String deviceVideoCallUrl(String protocol, String channel, String user, String pass, String devToken, JLinkClient jClient) {
+        return deviceVideoCallUrl(protocol, channel, user, pass, "g711a", devToken, jClient);
+    }
+
+    public String deviceVideoCallUrl(String protocol, String channel, String user, String pass, String audioCodePlayer, String devToken, JLinkClient jClient) {
+        return deviceVideoCallUrl(protocol, channel, user, pass, audioCodePlayer, "16", devToken, jClient);
+    }
+
+    public String deviceVideoCallUrl(String protocol, String channel, String user, String pass, String audioCodePlayer, String audioAccuracyPlayer,
+                                  String devToken, JLinkClient jClient) {
+        return deviceVideoCallUrl(protocol, channel, user, pass, audioCodePlayer, audioAccuracyPlayer, "h264", devToken, jClient);
+    }
+
+    public String deviceVideoCallUrl(String protocol, String channel, String user, String pass, String audioCodePlayer, String audioAccuracyPlayer,
+                                  String videoPlayer, String devToken, JLinkClient jClient) {
+        return deviceVideoCallUrl(protocol, channel, user, pass, audioCodePlayer, audioAccuracyPlayer, videoPlayer, "360", devToken, jClient);
+    }
+
+    public String deviceVideoCallUrl(String protocol, String channel, String user, String pass, String audioCodePlayer, String audioAccuracyPlayer,
+                                  String videoPlayer, String widthPlayer, String devToken, JLinkClient jClient) {
+        return deviceVideoCallUrl(protocol, channel, user, pass, audioCodePlayer, audioAccuracyPlayer, videoPlayer, widthPlayer, "640", devToken, jClient);
+    }
+
+    public String deviceVideoCallUrl(String protocol, String channel, String user, String pass, String audioCodePlayer, String audioAccuracyPlayer,
+                                  String videoPlayer, String widthPlayer, String heightPlayer, String devToken, JLinkClient jClient) {
+        return deviceVideoCallUrl(protocol, channel, user, pass, audioCodePlayer, audioAccuracyPlayer, videoPlayer, widthPlayer, heightPlayer, "12", devToken, jClient);
+    }
+
+    public String deviceVideoCallUrl(String protocol, String channel, String user, String pass, String audioCodePlayer, String audioAccuracyPlayer,
+                                  String videoPlayer, String widthPlayer, String heightPlayer, String fpsPlayer, String devToken, JLinkClient jClient) {
+        return deviceVideoCallUrl(protocol, channel, user, pass, audioCodePlayer, audioAccuracyPlayer, videoPlayer, widthPlayer, heightPlayer, fpsPlayer, "8000", devToken, jClient);
+    }
+
+    public String deviceVideoCallUrl(String protocol, String channel, String user, String pass, String audioCodePlayer, String audioAccuracyPlayer,
+                                  String videoPlayer, String widthPlayer, String heightPlayer, String fpsPlayer, String audioKHZPlayer, String devToken, JLinkClient jClient) {
+        return new DeviceVideoCallUrlRequest().deviceVideoCallUrl(protocol, channel, user, pass, audioCodePlayer, audioAccuracyPlayer, videoPlayer, widthPlayer, heightPlayer, fpsPlayer, audioKHZPlayer, devToken, jClient);
     }
 
     /**
