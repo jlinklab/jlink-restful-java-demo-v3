@@ -94,6 +94,7 @@ public class JFTechBossRequest {
         }
     }
 
+    @Deprecated
     public BossCardUsedInfoResponse cardUsedInfo(String cardId, JLinkClient mJLinkClient) {
         String url = String.format("%s/%s", JLinkDomain.BOSS_DOMAIN.get(), JFTechBossRequestUrl.CARD_USED_INFO.get());
         Map<String, Object> body = new HashMap<>();
